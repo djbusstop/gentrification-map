@@ -13,11 +13,9 @@ const routes: Array<RouteConfig> = [
   {
     path: "/map",
     name: "Gentrification Map",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    // Lazy loading
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MapVue.vue")
+      import(/* webpackChunkName: "about" */ "../views/MapView.vue")
   }
 ];
 

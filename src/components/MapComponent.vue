@@ -9,7 +9,8 @@ export default {
   name: "Map",
   props: {
     mapCenter: {
-      type: undefined
+      required: true,
+      type: Array
     }
   },
   data() {
@@ -18,11 +19,11 @@ export default {
     };
   },
   mounted() {
-    this.initMap();
+    this.initMap(this.mapCenter);
   },
   watch: {
     mapCenter(value) {
-      this.map.setView(value, 18);
+      this.map.setView(value, 10);
     }
     // data(value) {
     //   this.map.drawPoints(value);
@@ -32,9 +33,10 @@ export default {
     // }
   },
   methods: {
-    initMap() {
+    initMap(mapCenter) {
       this.$nextTick(() => {
         this.map = new Map("map", { zoomControl: false });
+        this.map.setView(mapCenter, 14);
       });
     }
   }

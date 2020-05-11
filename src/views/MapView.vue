@@ -3,16 +3,26 @@
     <v-container>
       <h1>Title</h1>
     </v-container>
-    <map-component />
+    <map-component :map-center="[52.496, 13.397]" />
   </div>
 </template>
 
 <script>
 import MapComponent from "@/components/MapComponent";
+import { getClosedPlacesGeojson } from "@/api";
 export default {
-  name: "Map",
+  name: "MapView",
+  data() {
+    return {
+      closedPlaces: null
+    };
+  },
   components: {
     MapComponent
+  },
+  async mounted() {
+    const closedPlaces = await getClosedPlacesGeojson();
+    this.closedPlaces = closedPlaces;
   }
 };
 </script>
