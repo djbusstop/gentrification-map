@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-container>
+    <v-card>
+      <v-card-title>Gentrification Map Berlin</v-card-title>
+      <v-card-text>Some text</v-card-text>
+      <v-card-actions>
+        <v-btn v-on:click="goToMap()">Go to map</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import router from "@/router";
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+  // components: {
+  //   HelloWorld
+  // }
+  methods: {
+    goToMap() {
+      router.push("/map");
+    }
   }
 };
 </script>
