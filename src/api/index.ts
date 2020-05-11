@@ -1,7 +1,7 @@
 import Airtable from "airtable";
 // @ts-ignore
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
-import { feature, featureCollection } from "@turf/helpers";
+import { point, featureCollection } from "@turf/helpers";
 
 interface ClosedPlace {
   street: string;
@@ -43,9 +43,8 @@ const geocode = async (closedPlace: ClosedPlace) => {
 
   // Await response
   const location = await getLocationMapboxApi(address);
-  console.log(location);
   // Create feature
-  return feature(location, closedPlace);
+  return point(location, closedPlace);
 };
 
 const getClosedPlacesGeojson = async () => {
@@ -65,7 +64,7 @@ const getClosedPlacesGeojson = async () => {
 
   // List of features to FeatureCollection
   const resultsFeatureCollection = featureCollection(resultsFeatureList);
-
+  console.log(JSON.stringify(resultsFeatureCollection));
   return resultsFeatureCollection;
 };
 

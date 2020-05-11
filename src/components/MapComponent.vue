@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import L from "leaflet";
 import Map from "@/models/map";
 
 export default {
@@ -10,6 +11,9 @@ export default {
   props: {
     mapCenter: {
       required: true,
+      type: Array
+    },
+    data: {
       type: Array
     }
   },
@@ -23,14 +27,16 @@ export default {
   },
   watch: {
     mapCenter(value) {
-      this.map.setView(value, 10);
+      this.map.setView(value, 14);
+    },
+    data(value) {
+      if (value) {
+        value.forEach(featureCollection => {
+          console.log(featureCollection);
+          L.geoJSON(featureCollection).addTo(this.map);
+        });
+      }
     }
-    // data(value) {
-    //   this.map.drawPoints(value);
-    //   const point = value.features[5].geometry.coordinates;
-    //   const bounds = [this.userCoords, point.reverse()];
-    //   this.map.fitZoom(bounds);
-    // }
   },
   methods: {
     initMap(mapCenter) {

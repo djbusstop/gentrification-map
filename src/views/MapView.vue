@@ -3,7 +3,7 @@
     <v-container>
       <h1>Title</h1>
     </v-container>
-    <map-component :map-center="[52.496, 13.397]" />
+    <map-component :map-center="[52.496, 13.397]" :data="[closedPlaces]" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   name: "MapView",
   data() {
     return {
-      closedPlaces: null
+      closedPlaces: []
     };
   },
   components: {
