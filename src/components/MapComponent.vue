@@ -32,8 +32,18 @@ export default {
     data(value) {
       if (value) {
         value.forEach(featureCollection => {
-          console.log(featureCollection);
-          L.geoJSON(featureCollection).addTo(this.map);
+          L.geoJSON(featureCollection, {
+            // Marker Style
+            pointToLayer: function(point, latlng) {
+              return L.circleMarker(latlng);
+            },
+            style: function(layer) {
+              return {
+                stroke: 2,
+                fillColor: "black"
+              };
+            }
+          }).addTo(this.map);
         });
       }
     }

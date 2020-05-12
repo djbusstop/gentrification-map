@@ -21,6 +21,7 @@ export default {
     MapComponent
   },
   async mounted() {
+    // Get Closed Places
     const closedPlaces = await getClosedPlacesGeojson();
     this.closedPlaces = closedPlaces;
   }
