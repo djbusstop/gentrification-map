@@ -50,7 +50,7 @@ const geocode = async (closedPlace: ClosedPlace) => {
 const getClosedPlacesGeojson = async () => {
   // Get results from the table
   // @ts-ignore
-  const results: { fields: ClosedPlace }[] = await base("Table 1")
+  const results: { fields: ClosedPlace }[] = await base("closedPlaces")
     .select({ view: "Grid view" })
     .all();
 

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "@/views/Home.vue";
+import MapView from "@/views/MapView.vue";
 
 Vue.use(VueRouter);
 
@@ -8,14 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: Home
-  },
-  {
-    path: "/map",
-    name: "Gentrification Map",
-    // Lazy loading
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MapView.vue")
+    component: MapView
   }
 ];
 
