@@ -64,7 +64,6 @@ const getClosedPlacesGeojson = async () => {
 
   // List of features to FeatureCollection
   const resultsFeatureCollection = featureCollection(resultsFeatureList);
-  console.log(JSON.stringify(resultsFeatureCollection));
   return resultsFeatureCollection;
 };
 

@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.10.0",
-    "@mdi/font": "^3.6.95",
     "@turf/helpers": "^6.1.4",
     "@types/airtable": "^0.5.7",
     "@types/leaflet": "^1.5.12",
@@ -17,6 +16,8 @@
     "airtable": "^0.8.1",
     "core-js": "^3.6.4",
     "leaflet": "^1.6.0",
+    "leaflet-heatmap": "^1.0.0",
+    "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.7.1",
     "roboto-fontface": "*",
     "vue": "^2.6.11",

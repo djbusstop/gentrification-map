@@ -3,8 +3,13 @@
 </template>
 
 <script>
-import L from "leaflet";
+// import L from "leaflet";
 import Map from "@/models/map";
+// import { getClosedPlacesGeojson } from "@/api";
+
+// // Layers
+// import neukoellnShape from "@/assets/data/berlinNeukoelln.json";
+// import postcodes from "@/assets/data/berlinPostcodes.json";
 
 export default {
   name: "Map",
@@ -13,7 +18,7 @@ export default {
       required: true,
       type: Array
     },
-    data: {
+    layers: {
       type: Array
     }
   },
@@ -22,33 +27,25 @@ export default {
       map: null
     };
   },
-  mounted() {
+  async mounted() {
     this.initMap(this.mapCenter);
   },
   watch: {
+    // If map center is updated from the parent
     mapCenter(value) {
       this.map.setView(value, 14);
     },
-    data(value) {
-      if (value) {
-        value.forEach(featureCollection => {
-          L.geoJSON(featureCollection, {
-            // Marker Style
-            pointToLayer: function(point, latlng) {
-              return L.circleMarker(latlng);
-            },
-            style: function(layer) {
-              return {
-                stroke: 2,
-                fillColor: "black"
-              };
-            }
-          }).addTo(this.map);
+    layers(layersList) {
+      if (layersList && layersList.length > 0) {
+        layersList.forEach((layer) => {
+          console.log(layer);
+          layer.addTo(this.map);
         });
       }
     }
   },
   methods: {
+    // Add map to view
     initMap(mapCenter) {
       this.$nextTick(() => {
         this.map = new Map("map", { zoomControl: false });
