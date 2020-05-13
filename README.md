@@ -16,7 +16,7 @@ If you're handy with Gihub and Javascript/Vue, feel free to open an issue and we
 
 ### Forms
 
-Data is collected through Airtable forms, hopefully distributed by community partners.
+Data is collected through Airtable forms, distributed on social media and by community partners.
 
 #### Recently Closed Place Form
 
@@ -56,4 +56,10 @@ npm run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Deployment
+## Dependencies
+
+- Airtable: used for data storage and collection.
+- Mapbox: used for geoparsing addresses on the client side.
+- Stamen maps: raster map tiles
+
+Currently developing with live data but a mock data environment will be setup soon.
