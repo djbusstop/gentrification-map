@@ -10,9 +10,9 @@ Keeping a record of how our neighbourhood is permanently changed by the Covid-19
 
 ### How you can help
 
-- **If you noticed a place in Neukölln has closed recently, please report it!**
+- **If you noticed a place in Neukölln has closed recently, please report it [here](https://airtable.com/shrOgkjNoVXR5dYJt)!**
 
-- **You can spread the forms to your networks, to help increase the amount of data and give a better picture of gentrification in Neukölln.**
+- **You can spread the forms to your networks, to help increase the amount of data and give a better picture of gentrification in Neukölln. The forms are availible below, in English and German**
 
 - If you're handy with Gihub and Javascript/Vue, feel free to open an issue and we can be in touch about contributing.
 
