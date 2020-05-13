@@ -3,20 +3,24 @@ import Airtable from "airtable";
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
 import { point, featureCollection } from "@turf/helpers";
 
-interface ClosedPlace {
+// API Key for Mapbox geocoding service
+const MAPBOX_ACCESS_TOKEN = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN;
+const AIRTABLE_API_KEY = process.env.VUE_APP_AIRTABLE_API_KEY;
+// The ID for the airtable database
+const AIRTABLE_BASE_ID = process.env.VUE_APP_AIRTABLE_BASE_ID;
+
+// Interface for the shapes of the Airtable results
+interface Place {
   street: string;
   addressNumber: string;
   postcode: string;
 }
 
 // Mapbox client
-const MAPBOX_ACCESS_TOKEN = `sk.eyJ1IjoiZ29vZC1mcmllbmQiLCJhIjoiY2thMzI5azRzMGc4YjNkb2dlaHRvOXBrayJ9.UIEcdmZ6UGUtIZEKSJv91Q`;
 const geocodingClient = mbxGeocoding({ accessToken: MAPBOX_ACCESS_TOKEN });
 
 // Airtable client
-const base = new Airtable({ apiKey: "keywDXl3PxV5EEGAC" }).base(
-  "appaEed7sWm3CZIwH"
-);
+const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID);
 
 // Geolocate with Mapbox Api
 const getLocationMapboxApi = async (address: string) => {
@@ -37,7 +41,7 @@ const getLocationMapboxApi = async (address: string) => {
 };
 
 // Function to pass to promise resolver for geocoding
-const geocode = async (closedPlace: ClosedPlace) => {
+const geocode = async (closedPlace: Place) => {
   // Build address
   const address = `${closedPlace.street} ${closedPlace.addressNumber} ${closedPlace.postcode} Berlin`;
 
@@ -47,15 +51,18 @@ const geocode = async (closedPlace: ClosedPlace) => {
   return point(location, closedPlace);
 };
 
+/**
+ * Returns a feature collection of the geocoded places in the closedPlaces table
+ */
 const getClosedPlacesGeojson = async () => {
   // Get results from the table
   // @ts-ignore
-  const results: { fields: ClosedPlace }[] = await base("closedPlaces")
+  const results: { fields: Place }[] = await base("closedPlaces")
     .select({ view: "Grid view" })
     .all();
 
   // Clean response to only include db rows
-  const resultsObjects: ClosedPlace[] = results.map((item) => item.fields);
+  const resultsObjects: Place[] = results.map((item) => item.fields);
 
   // Geocode results and return list of geojson features
   const resultsFeatureList = await Promise.all(

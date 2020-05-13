@@ -1,25 +1,5 @@
 import L from "leaflet";
 
-const routeStyle = {
-  color: "#F9971E",
-  weight: 5
-};
-
-const startEndPointsStyle = {
-  color: "#F9971E",
-  radius: 10,
-  fillOpacity: 1
-};
-
-const geojsonMarkerOptions = {
-  radius: 12,
-  fillColor: "#ff7800",
-  color: "#000",
-  weight: 1,
-  opacity: 1,
-  fillOpacity: 1
-};
-
 export default class Map extends L.Map {
   constructor(id: any, params: any) {
     super(id, params);
@@ -37,27 +17,10 @@ export default class Map extends L.Map {
     this.setView([51.505, -0.09], 13);
   }
 
-  drawPoints(featureCollection: any) {
-    L.geoJSON(featureCollection, {
-      pointToLayer: (feature, latlng) =>
-        L.circleMarker(latlng, geojsonMarkerOptions)
-    }).addTo(this);
-  }
-
-  drawStartEndPoints(startEndPoints: any) {
-    startEndPoints.forEach((coords: any) => {
-      const circle = L.circle(coords.reverse(), startEndPointsStyle);
-      circle.addTo(this);
-    });
-  }
-
-  fitZoom(startEndPoints: any) {
-    this.fitBounds(startEndPoints);
-  }
-
-  // fitZoomFarthestTwoPoints(featureCollection: any) {
-  //   const coords = featureCollection.features.map((feat: any) => feat.geometry.coordinates);
-  //   const farthestPoints = farthestTwoPoints(coords);
-  //   this.fitZoom(farthestPoints);
+  // drawPoints(featureCollection: any) {
+  //   L.geoJSON(featureCollection, {
+  //     pointToLayer: (feature, latlng) =>
+  //       L.circleMarker(latlng, geojsonMarkerOptions)
+  //   }).addTo(this);
   // }
 }

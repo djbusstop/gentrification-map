@@ -68,15 +68,15 @@ export default {
   },
   async mounted() {
     // Get closed places
-    const closedPlaces = await getClosedPlacesGeojson();
+    // const closedPlaces = await getClosedPlacesGeojson();
 
     // Create initial layers
-    const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
-    const closedPlacesHeatmapLayer = this.createClosedPlacesHeatmapLayer(
-      closedPlaces
-    );
+    // const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
+    // const closedPlacesHeatmapLayer = this.createClosedPlacesHeatmapLayer(
+    //   closedPlaces
+    // );
     const neukollnShapeLayer = this.createNeukoellnShapeLayer(neukoellnShape);
-    this.layers = [neukollnShapeLayer, closedPlacesHeatmapLayer];
+    this.layers = [neukollnShapeLayer];
   },
   methods: {
     changeLocale(newLocale) {
@@ -97,30 +97,30 @@ export default {
         }
       });
     },
-    // Closed places layer
-    createClosedPlacesHeatmapLayer(closedPlaces) {
-      // Get data in correct shape for heatmap
-      const closedPlacesHeatmapData = closedPlaces.features.map((place) => {
-        return {
-          lat: place.geometry.coordinates[1],
-          lng: place.geometry.coordinates[0],
-          value: 1
-        };
-      });
+    // // Closed places layer
+    // createClosedPlacesHeatmapLayer(closedPlaces) {
+    //   // Get data in correct shape for heatmap
+    //   const closedPlacesHeatmapData = closedPlaces.features.map((place) => {
+    //     return {
+    //       lat: place.geometry.coordinates[1],
+    //       lng: place.geometry.coordinates[0],
+    //       value: 1
+    //     };
+    //   });
 
-      // Create heatmap layer
-      const heatmapLayer = new Heatmap({
-        radius: 10,
-        scaleRadius: true,
-        latField: "lat",
-        lngField: "lng",
-        valueField: "value"
-      });
+    //   // Create heatmap layer
+    //   const heatmapLayer = new Heatmap({
+    //     radius: 10,
+    //     scaleRadius: true,
+    //     latField: "lat",
+    //     lngField: "lng",
+    //     valueField: "value"
+    //   });
 
-      // Set data on heatmap layer
-      heatmapLayer.setData({ data: closedPlacesHeatmapData });
-      return heatmapLayer;
-    },
+    //   // Set data on heatmap layer
+    //   heatmapLayer.setData({ data: closedPlacesHeatmapData });
+    //   return heatmapLayer;
+    // },
     // Neukoelln shape layer
     createNeukoellnShapeLayer(neukoellnShape) {
       // Filter out only parts we want
