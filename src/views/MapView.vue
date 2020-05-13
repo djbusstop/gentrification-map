@@ -68,15 +68,12 @@ export default {
   },
   async mounted() {
     // Get closed places
-    // const closedPlaces = await getClosedPlacesGeojson();
+    const closedPlaces = await getClosedPlacesGeojson();
 
     // Create initial layers
-    // const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
-    // const closedPlacesHeatmapLayer = this.createClosedPlacesHeatmapLayer(
-    //   closedPlaces
-    // );
+    const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
     const neukollnShapeLayer = this.createNeukoellnShapeLayer(neukoellnShape);
-    this.layers = [neukollnShapeLayer];
+    this.layers = [neukollnShapeLayer, closedPlacesLayer];
   },
   methods: {
     changeLocale(newLocale) {

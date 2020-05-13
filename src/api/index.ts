@@ -20,7 +20,9 @@ interface Place {
 const geocodingClient = mbxGeocoding({ accessToken: MAPBOX_ACCESS_TOKEN });
 
 // Airtable client
-const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID);
+const base = new Airtable({
+  apiKey: AIRTABLE_API_KEY
+}).base(AIRTABLE_BASE_ID);
 
 // Geolocate with Mapbox Api
 const getLocationMapboxApi = async (address: string) => {
