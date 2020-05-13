@@ -11,8 +11,26 @@ import { getLocationMapboxApi } from "./mapbox";
 const AIRTABLE_API_KEY = process.env.VUE_APP_AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.VUE_APP_AIRTABLE_BASE_ID;
 
-// Interface for the shapes of the Airtable results
-interface PlaceFields {
+export type PlaceType =
+  | "bar"
+  | "cafe"
+  | "clothingStore"
+  | "electronicsStore"
+  | "grocery"
+  | "restaurant"
+  | "repair"
+  | "other"
+  | "communitySpace"
+  | "school"
+  | "salon";
+
+export interface PlaceFields {
+  id: string;
+  name: string;
+  noticedDate: Date;
+  placeType: PlaceType;
+  placeTypeIfOther: string;
+  isChain: boolean;
   street: string;
   addressNumber: string;
   postcode: string;
@@ -51,7 +69,10 @@ const geocodeAndFeaturiseRow = async (place: {
 /**
  * Returns a feature collection of the geocoded places in the closedPlaces table
  */
-const getClosedPlacesGeojson = async (): Promise<FeatureCollection<Point>> => {
+const getClosedPlacesGeojson = async (): Promise<Feature<
+  Point,
+  PlaceFields
+>[]> => {
   // Get results from the table
   // @ts-ignore
   const closedPlacesRows: { fields: Place }[] = await base("closedPlaces")
@@ -69,11 +90,7 @@ const getClosedPlacesGeojson = async (): Promise<FeatureCollection<Point>> => {
     (place) => place != undefined
   );
 
-  // List of features to FeatureCollection
-  const resultsFeatureCollection = featureCollection(
-    closedPlacesPoints as Feature<Point, PlaceFields>[]
-  );
-  return resultsFeatureCollection;
+  return closedPlacesPoints as Feature<Point, PlaceFields>[];
 };
 
 export { getClosedPlacesGeojson };

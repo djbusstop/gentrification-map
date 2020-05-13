@@ -41,31 +41,25 @@
     </v-container>
 
     <!-- Map -->
-    <map-component
-      :map-center="[52.476, 13.4432]"
-      :layers="[...variableLayers, ...fixedLayers]"
-    />
+    <places-map :map-center="[52.476, 13.4432]" :places="filteredPlaces" />
   </div>
 </template>
 
 <script>
-import L from "leaflet";
-import Heatmap from "leaflet-heatmap";
+import PlacesMap from "@/components/PlacesMap";
 
-import { getClosedPlacesGeojson } from "@/api";
-
-import { placesPointsLayer } from "./layers/placesPointsLayer";
-
-import MapComponent from "@/components/MapComponent";
-import neukoellnShape from "@/assets/data/berlinNeukoelln.json";
-import aroundNeukoellnShape from "@/assets/data/mergedAreaAroundNK.json";
+import { getClosedPlacesGeojson } from "@/api/airtable";
 
 export default {
   name: "MapView",
   data() {
     return {
-      variableLayers: [],
-      fixedLayers: [],
+      // Places Data (lists of features)
+      closedPlaces: [],
+      openedPlaces: [],
+      facingEvictionPlaces: [],
+      // Inputs
+      // Settings
       locales: [
         {
           i18nKey: "german",
@@ -79,61 +73,22 @@ export default {
     };
   },
   components: {
-    MapComponent
+    PlacesMap
   },
   async mounted() {
-    // Get closed places
-    const closedPlaces = await getClosedPlacesGeojson();
-    // const openedPlaces = await getOpenedPlacesGeojson();
-
-    // Create initial layers
-    const closedPlacesLayer = placesPointsLayer(closedPlaces);
-    const neukollnShapeLayer = this.createNeukoellnShapeLayer(neukoellnShape);
-    const areaAroundNeukollnShapeLayer = this.createAreaAroundNeukoellnShapeLayer(
-      aroundNeukoellnShape
-    );
-
-    this.fixedLayers = [areaAroundNeukollnShapeLayer];
-    this.variableLayers = [closedPlacesLayer];
+    // Get features from backends
+    this.closedPlaces = await getClosedPlacesGeojson();
   },
-  watch: {
-    // Change data
-    dataToggle(newValue) {
-      console.log(newValue);
-
-      // 0 - facing eviction
-      // 1 - closed places
-      // 2 - opened places
+  computed: {
+    // Send the filtered places to the map
+    filteredPlaces: function() {
+      const allPlaces = [...this.closedPlaces];
+      return allPlaces;
     }
   },
   methods: {
     changeLocale(newLocale) {
       this.$vuetify.lang.current = newLocale;
-    },
-    // Neukoelln shape layer
-    createNeukoellnShapeLayer(neukoellnShape) {
-      // Filter out only parts we want
-      return L.geoJSON(neukoellnShape, {
-        style() {
-          return {
-            fillColor: "transparent",
-            color: "black",
-            weight: 8
-          };
-        }
-      });
-    },
-    createAreaAroundNeukoellnShapeLayer(shape) {
-      return L.geoJSON(shape, {
-        style() {
-          return {
-            fillColor: "black",
-            fillOpacity: 0.8,
-            color: "black",
-            weight: 8
-          };
-        }
-      });
     }
   }
 };

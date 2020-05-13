@@ -5,20 +5,20 @@
 <script>
 // import L from "leaflet";
 import Map from "@/models/map";
-// import { getClosedPlacesGeojson } from "@/api";
+import { featureCollection } from "@turf/helpers";
 
-// // Layers
-// import neukoellnShape from "@/assets/data/berlinNeukoelln.json";
-// import postcodes from "@/assets/data/berlinPostcodes.json";
+import { placesPointsLayer } from "@/views/layers/placesPointsLayer";
+import { aroundNeukoellnLayer } from "@/views/layers/aroundNeukoellnLayer";
 
 export default {
-  name: "Map",
+  name: "PlacesMap",
   props: {
     mapCenter: {
       required: true,
       type: Array
     },
-    layers: {
+    // Takes a list of Point features.
+    places: {
       type: Array
     }
   },
@@ -35,11 +35,12 @@ export default {
     mapCenter(value) {
       this.map.setView(value, 14);
     },
-    layers(layersList) {
-      if (layersList && layersList.length > 0) {
-        layersList.forEach((layer) => {
-          layer.addTo(this.map);
-        });
+    // Create places layer and draw it on map
+    places(placesList) {
+      if (placesList) {
+        const placesFeatureCollection = featureCollection(placesList);
+        const placesPoints = placesPointsLayer(placesFeatureCollection);
+        placesPoints.addTo(this.map);
       }
     }
   },
@@ -57,6 +58,10 @@ export default {
           ]
         });
         this.map.setView(mapCenter, 14);
+
+        // Add shape around Neukölln
+        const aroundNeukoelln = aroundNeukoellnLayer();
+        aroundNeukoelln.addTo(this.map);
       });
     }
   }
