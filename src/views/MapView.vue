@@ -30,10 +30,21 @@
 
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
+
+      <!-- Layers toggle -->
+      <h3>Layers</h3>
+      <v-btn-toggle v-model="layersToggle" multiple dark>
+        <v-btn>Closed</v-btn>
+        <v-btn>Opened</v-btn>
+        <v-btn>Facing Eviction</v-btn>
+      </v-btn-toggle>
     </v-container>
 
     <!-- Map -->
-    <map-component :map-center="[52.476, 13.4432]" :layers="layers" />
+    <map-component
+      :map-center="[52.476, 13.4432]"
+      :layers="[...variableLayers, ...fixedLayers]"
+    />
   </div>
 </template>
 
@@ -43,6 +54,8 @@ import Heatmap from "leaflet-heatmap";
 
 import { getClosedPlacesGeojson } from "@/api";
 
+import { placesPointsLayer } from "./layers/placesPointsLayer";
+
 import MapComponent from "@/components/MapComponent";
 import neukoellnShape from "@/assets/data/berlinNeukoelln.json";
 import aroundNeukoellnShape from "@/assets/data/mergedAreaAroundNK.json";
@@ -51,7 +64,8 @@ export default {
   name: "MapView",
   data() {
     return {
-      layers: [],
+      variableLayers: [],
+      fixedLayers: [],
       locales: [
         {
           i18nKey: "german",
@@ -70,33 +84,31 @@ export default {
   async mounted() {
     // Get closed places
     const closedPlaces = await getClosedPlacesGeojson();
+    // const openedPlaces = await getOpenedPlacesGeojson();
 
     // Create initial layers
-    const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
+    const closedPlacesLayer = placesPointsLayer(closedPlaces);
     const neukollnShapeLayer = this.createNeukoellnShapeLayer(neukoellnShape);
     const areaAroundNeukollnShapeLayer = this.createAreaAroundNeukoellnShapeLayer(
       aroundNeukoellnShape
     );
-    this.layers = [areaAroundNeukollnShapeLayer];
+
+    this.fixedLayers = [areaAroundNeukollnShapeLayer];
+    this.variableLayers = [closedPlacesLayer];
+  },
+  watch: {
+    // Change data
+    dataToggle(newValue) {
+      console.log(newValue);
+
+      // 0 - facing eviction
+      // 1 - closed places
+      // 2 - opened places
+    }
   },
   methods: {
     changeLocale(newLocale) {
       this.$vuetify.lang.current = newLocale;
-    },
-    // Closed places layer
-    createClosedPlacesLayer(closedPlaces) {
-      return L.geoJSON(closedPlaces, {
-        // Marker Style
-        pointToLayer: function(point, latlng) {
-          return L.circleMarker(latlng);
-        },
-        style: function() {
-          return {
-            stroke: 2,
-            fillColor: "black"
-          };
-        }
-      });
     },
     // Neukoelln shape layer
     createNeukoellnShapeLayer(neukoellnShape) {
