@@ -48,7 +48,15 @@ export default {
     // Add map to view
     initMap(mapCenter) {
       this.$nextTick(() => {
-        this.map = new Map("map", { zoomControl: false });
+        this.map = new Map("map", {
+          zoomControl: false,
+          minZoom: 14,
+          // Map bounds are around Neukölln
+          maxBounds: [
+            [52.504222, 13.390656],
+            [52.452303, 13.502242]
+          ]
+        });
         this.map.setView(mapCenter, 14);
       });
     }

@@ -45,6 +45,7 @@ import { getClosedPlacesGeojson } from "@/api";
 
 import MapComponent from "@/components/MapComponent";
 import neukoellnShape from "@/assets/data/berlinNeukoelln.json";
+import aroundNeukoellnShape from "@/assets/data/mergedAreaAroundNK.json";
 
 export default {
   name: "MapView",
@@ -73,7 +74,10 @@ export default {
     // Create initial layers
     const closedPlacesLayer = this.createClosedPlacesLayer(closedPlaces);
     const neukollnShapeLayer = this.createNeukoellnShapeLayer(neukoellnShape);
-    this.layers = [neukollnShapeLayer, closedPlacesLayer];
+    const areaAroundNeukollnShapeLayer = this.createAreaAroundNeukoellnShapeLayer(
+      aroundNeukoellnShape
+    );
+    this.layers = [areaAroundNeukollnShapeLayer];
   },
   methods: {
     changeLocale(newLocale) {
@@ -94,30 +98,6 @@ export default {
         }
       });
     },
-    // // Closed places layer
-    // createClosedPlacesHeatmapLayer(closedPlaces) {
-    //   // Get data in correct shape for heatmap
-    //   const closedPlacesHeatmapData = closedPlaces.features.map((place) => {
-    //     return {
-    //       lat: place.geometry.coordinates[1],
-    //       lng: place.geometry.coordinates[0],
-    //       value: 1
-    //     };
-    //   });
-
-    //   // Create heatmap layer
-    //   const heatmapLayer = new Heatmap({
-    //     radius: 10,
-    //     scaleRadius: true,
-    //     latField: "lat",
-    //     lngField: "lng",
-    //     valueField: "value"
-    //   });
-
-    //   // Set data on heatmap layer
-    //   heatmapLayer.setData({ data: closedPlacesHeatmapData });
-    //   return heatmapLayer;
-    // },
     // Neukoelln shape layer
     createNeukoellnShapeLayer(neukoellnShape) {
       // Filter out only parts we want
@@ -125,8 +105,20 @@ export default {
         style() {
           return {
             fillColor: "transparent",
-            color: "red",
-            weight: 10
+            color: "black",
+            weight: 8
+          };
+        }
+      });
+    },
+    createAreaAroundNeukoellnShapeLayer(shape) {
+      return L.geoJSON(shape, {
+        style() {
+          return {
+            fillColor: "black",
+            fillOpacity: 0.8,
+            color: "black",
+            weight: 8
           };
         }
       });
