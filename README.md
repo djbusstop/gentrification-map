@@ -1,4 +1,6 @@
-# Neukölln Gentrification Map Frontend
+# Neukölln Gentrification Map
+
+**Mapping the change of use of commercial property in Neukölln. By tracking what places have closed or opened, and what those places are used for, we can visualise the impacts of gentrification on our neighbourhood**
 
 This project is for collecting and visualising data about displacement and urban transformation in Neukölln Berlin during the Covid-19 crisis. Many of the tenants of commercial property in Neukölln are financially precarious, and the neighbourhood has been under great strain in terms of rent increase for years. We see the effects recently of how the city government supports the gentrification. The Broadway Neukölln plan and upgrades on Karl-Marx-Strasse bicycle paths show that when enough middle class people move in, the city sees the value in investing in the neighbourhood. Our neoliberal government prioritises increasing the tax base over protecting the livelihoods and meeting the basic needs of long term Neukölln residents. The city and the property investors would be happy to kick the current residents out if they could replace them with people who can give them more money.
 
