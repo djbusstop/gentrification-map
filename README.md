@@ -8,13 +8,13 @@ Now, the policies created to deal with the Covid-19 crises have caused temporary
 
 Keeping a record of how our neighbourhood is permanently changed by the Covid-19 crises, and on in to the future will be a resource for activist, to strengthen the message of antigentrfication organising.
 
-#### How you can help
+### How you can help
 
-If you noticed a place in Neukölln has closed recently, please report it!
+- **If you noticed a place in Neukölln has closed recently, please report it!**
 
-You can also spread the forms to your networks.
+- **You can spread the forms to your networks, to help increase the amount of data and give a better picture of gentrification in Neukölln.**
 
-If you're handy with Gihub and Javascript/Vue, feel free to open an issue and we can be in touch about contributing.
+- If you're handy with Gihub and Javascript/Vue, feel free to open an issue and we can be in touch about contributing.
 
 ### Forms
 
