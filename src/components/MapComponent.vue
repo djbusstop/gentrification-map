@@ -38,7 +38,6 @@ export default {
     layers(layersList) {
       if (layersList && layersList.length > 0) {
         layersList.forEach((layer) => {
-          console.log(layer);
           layer.addTo(this.map);
         });
       }

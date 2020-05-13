@@ -33,7 +33,7 @@
 
       <!-- Layers toggle -->
       <h3>Layers</h3>
-      <v-btn-toggle v-model="layersToggle" multiple dark>
+      <v-btn-toggle multiple dark>
         <v-btn>Closed</v-btn>
         <v-btn>Opened</v-btn>
         <v-btn>Facing Eviction</v-btn>
