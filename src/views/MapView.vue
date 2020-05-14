@@ -31,13 +31,13 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <!-- Layers toggle -->
-      <h3>Layers</h3>
-      <v-btn-toggle multiple dark>
-        <v-btn>Closed</v-btn>
-        <v-btn>Opened</v-btn>
-        <v-btn>Facing Eviction</v-btn>
-      </v-btn-toggle>
+      <!-- Cards -->
+      <!-- <place-card
+        v-for="place in filteredPlaces"
+        :key="place.id"
+        :place="place"
+        class="mb-5"
+      /> -->
     </v-container>
 
     <!-- Map -->
@@ -47,6 +47,7 @@
 
 <script>
 import PlacesMap from "@/components/PlacesMap";
+import PlaceCard from "@/components/PlaceCard";
 
 import { getClosedPlacesGeojson } from "@/api/airtable";
 
@@ -74,6 +75,7 @@ export default {
   },
   components: {
     PlacesMap
+    // PlaceCard
   },
   async mounted() {
     // Get features from backends
