@@ -23,19 +23,25 @@
         v-model="typeFilter"
       />
 
-      <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.resultsListTitle") }}</h2>
+      <h2 class="mt-5 mb-2">
+        {{ $vuetify.lang.t("$vuetify.resultsListTitle") }}
+      </h2>
       <!-- Cards -->
       <place-card
         v-for="(place, index) in filteredPlaces"
         :key="index"
         :name="place.properties.name"
         :placeType="place.properties.placeType"
+        :street="place.properties.street"
+        :addressNumber="place.properties.addressNumber"
+        :postcode="place.properties.postcode"
         class="mb-5"
+        v-on:click-map-icon="centerMapOnCardPlace(index)"
       />
     </v-container>
 
     <!-- Map -->
-    <places-map :map-center="[52.476, 13.4432]" :places="filteredPlaces" />
+    <places-map :map-center="mapCenter" :places="filteredPlaces" />
   </div>
 </template>
 
@@ -53,6 +59,8 @@ export default {
   name: "MapView",
   data() {
     return {
+      // Default map position
+      mapCenter: [52.476, 13.4432],
       // Places data
       closedPlaces: [],
       // Input config
@@ -91,6 +99,12 @@ export default {
         return typeFilterOptionsFromPlaces(this.closedPlaces);
       }
       return [];
+    }
+  },
+  methods: {
+    centerMapOnCardPlace: function(index) {
+      const place = this.filteredPlaces[index];
+      this.mapCenter = place.geometry.coordinates.reverse();
     }
   }
 };

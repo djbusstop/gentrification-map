@@ -4,12 +4,15 @@
       <v-row align="center" no-gutters>
         <h3>{{ name }}</h3>
         <v-spacer />
-        <v-btn icon v-on:click="this.$emit('click-place-card-map-icon', index)">
+        <v-btn icon v-on:click="$emit('click-map-icon')">
           <v-icon>map</v-icon>
         </v-btn>
       </v-row>
+
+      <p>{{ `${street} ${addressNumber} Berlin ${postcode}` }}</p>
+
       <v-row class="mt-2">
-        <v-chip class="ml-2" small :color="red">
+        <v-chip class="ml-2" small color="red">
           {{ $vuetify.lang.t(`$vuetify.closed`) }}
         </v-chip>
         <v-chip class="ml-2" small :color="getPlaceTypeColor(placeType)">
@@ -32,6 +35,15 @@ export default {
       type: String
     },
     placeType: {
+      type: String
+    },
+    street: {
+      type: String
+    },
+    addressNumber: {
+      type: String
+    },
+    postcode: {
       type: String
     }
   },

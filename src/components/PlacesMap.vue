@@ -34,7 +34,7 @@ export default {
   watch: {
     // If map center is updated from the parent
     mapCenter(value) {
-      this.map.setView(value, 14);
+      this.map.setView(value, 16);
     },
     // Create places layer and draw it on map
     places(placesList) {
