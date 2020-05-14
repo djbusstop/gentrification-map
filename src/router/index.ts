@@ -8,7 +8,10 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: MapView
+    component: MapView,
+    meta: {
+      title: "Gentrification Map"
+    }
   }
 ];
 

@@ -13,19 +13,20 @@ export const placesPointsLayer = (places: FeatureCollection) => {
     return {
       stroke: 0,
       fillColor: PlaceTypeColor[placeType],
-      fillOpacity: 0.75
+      fillOpacity: 0.85
     };
   };
 
   // Create Leaflet Layer
-  return L.geoJSON(places, {
+  const layer = L.geoJSON(places, {
     pointToLayer: function(point, latlng) {
-      return L.circleMarker(latlng, { radius: 12 }).bindPopup(
-        point.properties.name,
-        { closeButton: false }
-      );
+      return L.circleMarker(latlng, {
+        radius: 12,
+        interactive: true
+      }).bindPopup(point.properties.name, { closeButton: false });
     },
     // @ts-ignore
-    style: style
+    style
   });
+  return layer;
 };
