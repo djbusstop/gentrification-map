@@ -1,7 +1,7 @@
 <template>
   <div class="map-view-grid">
     <!-- Sidebar -->
-    <v-container>
+    <v-container class="content">
       <v-app-bar color="transparent" flat>
         <v-spacer />
         <v-btn icon>
@@ -111,6 +111,9 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  overflow-y: scroll;
+}
 .map-view-grid {
   height: 100vh;
   width: 100vw;

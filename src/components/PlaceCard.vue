@@ -9,7 +9,7 @@
         </v-btn>
       </v-row>
 
-      <p>{{ `${street} ${addressNumber} Berlin ${postcode}` }}</p>
+      <p>{{ `${street} ${addressNumber} Berlin ${postcode || ""}` }}</p>
 
       <v-row class="mt-2">
         <v-chip class="ml-2" small color="red">
