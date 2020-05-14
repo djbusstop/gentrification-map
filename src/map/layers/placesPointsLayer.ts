@@ -20,7 +20,10 @@ export const placesPointsLayer = (places: FeatureCollection) => {
   // Create Leaflet Layer
   return L.geoJSON(places, {
     pointToLayer: function(point, latlng) {
-      return L.circleMarker(latlng, { radius: 12 });
+      return L.circleMarker(latlng, { radius: 12 }).bindPopup(
+        point.properties.name,
+        { closeButton: false }
+      );
     },
     // @ts-ignore
     style: style
