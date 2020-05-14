@@ -1,6 +1,7 @@
 import L from "leaflet";
 
 export default class Map extends L.Map {
+  // Initialises map with stamen tile layer
   constructor(id: any, params: any) {
     super(id, params);
     // Custom Map Setup
@@ -16,11 +17,4 @@ export default class Map extends L.Map {
     basemap.addTo(this);
     this.setView([51.505, -0.09], 13);
   }
-
-  // drawPoints(featureCollection: any) {
-  //   L.geoJSON(featureCollection, {
-  //     pointToLayer: (feature, latlng) =>
-  //       L.circleMarker(latlng, geojsonMarkerOptions)
-  //   }).addTo(this);
-  // }
 }

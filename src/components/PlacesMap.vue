@@ -4,7 +4,7 @@
 
 <script>
 // import L from "leaflet";
-import Map from "@/models/map";
+import Map from "@/map/map";
 import { featureCollection } from "@turf/helpers";
 
 import { placesPointsLayer } from "@/map/layers/placesPointsLayer";

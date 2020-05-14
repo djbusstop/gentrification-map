@@ -56,7 +56,8 @@ import PlacesMap from "@/components/PlacesMap";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 
 import { getClosedPlacesGeojson } from "@/api/airtable";
-import { PlaceTypeColor } from "@/map/styles";
+
+import { typeFilterOptionsFromPlaces } from "./utils";
 
 export default {
   name: "MapView",
@@ -110,23 +111,7 @@ export default {
     },
     placesTypesFilterOptions: function() {
       if (this.closedPlaces) {
-        // Get unique values of closedPlaces placeTypes
-        const availableTypes = this.closedPlaces.reduce((acc, place) => {
-          // If place type already in list
-          if (acc.includes(place.properties.placeType)) {
-            return acc;
-          }
-          return [place.properties.placeType, ...acc];
-        }, []);
-
-        // Map the unique types to the config
-        const availableTypesObjects = availableTypes.map((type) => {
-          return {
-            key: type,
-            color: PlaceTypeColor[type]
-          };
-        });
-        return availableTypesObjects;
+        return typeFilterOptionsFromPlaces(this.closedPlaces);
       }
       return [];
     }
