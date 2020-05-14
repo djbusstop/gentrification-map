@@ -1,21 +1,9 @@
 import L from "leaflet";
 import { FeatureCollection, Feature, Point } from "@turf/helpers";
 
-import { PlaceFields, PlaceType } from "@/api/airtable";
+import { PlaceFields } from "@/api/airtable";
 
-export enum PlaceTypeColor {
-  bar = "yellow",
-  cafe = "teal",
-  clothingStore = "mediumblue",
-  electronicsStore = "purple",
-  grocery = "deeppink",
-  restaurant = "coral",
-  repair = "forestgreen",
-  other = "tomato",
-  communitySpace = "black",
-  school = "organge",
-  salon = "blue"
-}
+import { PlaceTypeColor } from "../styles";
 
 // Function that filters features by some property
 export const placesPointsLayer = (places: FeatureCollection) => {

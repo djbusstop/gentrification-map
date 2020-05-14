@@ -7,8 +7,8 @@
 import Map from "@/models/map";
 import { featureCollection } from "@turf/helpers";
 
-import { placesPointsLayer } from "@/views/layers/placesPointsLayer";
-import { aroundNeukoellnLayer } from "@/views/layers/aroundNeukoellnLayer";
+import { placesPointsLayer } from "@/map/layers/placesPointsLayer";
+import { aroundNeukoellnLayer } from "@/map/layers/aroundNeukoellnLayer";
 
 export default {
   name: "PlacesMap",
