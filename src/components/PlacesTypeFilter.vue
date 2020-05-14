@@ -1,5 +1,5 @@
 <template>
-  <v-chip-group multiple v-model="selectedTypes">
+  <v-chip-group column multiple v-model="selectedTypes">
     <v-chip
       v-for="placeType in placesTypes"
       :key="placeType.key"
@@ -15,7 +15,6 @@ export default {
   name: "PlacesTypeFilter",
   props: {
     placesTypes: {
-      required: true,
       type: Array
     }
   },

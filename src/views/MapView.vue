@@ -4,6 +4,9 @@
     <v-container>
       <v-app-bar color="transparent" flat>
         <v-spacer />
+        <v-btn icon>
+          <v-icon>code</v-icon>
+        </v-btn>
         <locale-selector />
       </v-app-bar>
 
@@ -22,12 +25,13 @@
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.resultsListTitle") }}</h2>
       <!-- Cards -->
-      <!-- <place-card
-        v-for="place in filteredPlaces"
-        :key="place.id"
-        :place="place"
+      <place-card
+        v-for="(place, index) in filteredPlaces"
+        :key="index"
+        :name="place.properties.name"
+        :placeType="place.properties.placeType"
         class="mb-5"
-      /> -->
+      />
     </v-container>
 
     <!-- Map -->
@@ -39,6 +43,7 @@
 import LocaleSelector from "@/components/LocaleSelector";
 import PlacesMap from "@/components/PlacesMap";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
+import PlaceCard from "@/components/PlaceCard";
 
 import { getClosedPlacesGeojson } from "@/api/airtable";
 
@@ -48,22 +53,19 @@ export default {
   name: "MapView",
   data() {
     return {
-      // Places Data (lists of features)
+      // Places data
       closedPlaces: [],
-      openedPlaces: [],
-      facingEvictionPlaces: [],
       // Input config
       placesTypes: undefined,
       // Filters
-      typeFilter: undefined,
-      placesLayerFilter: undefined
+      typeFilter: undefined
     };
   },
   components: {
     LocaleSelector,
     PlacesMap,
-    PlacesTypeFilter
-    // PlaceCard
+    PlacesTypeFilter,
+    PlaceCard
   },
   async mounted() {
     // Get features from backends
