@@ -11,6 +11,12 @@ export default {
   title: "Gentrification Map Neukölln",
   description:
     "Mapping the change of use of commercial property in Neukölln. By tracking what places have closed or opened, and what those places are doing, we can see what changes are taking places in the neighbourhood  [Todo, create description of project]",
+  reportClosedPlace:
+    "If you noticed a place has closed in Neukölln, report it here.",
+  reportOpenedPlace:
+    "If you noticed a place has closed in Neukölln, report it here.",
+  reportPlaceFacingEviction:
+    "If you know of a place facing eviction, report it here.",
   filters: {
     filterPlaceTypeTitle: "Filter place type"
   },
@@ -26,5 +32,6 @@ export default {
     communitySpace: "Community Space",
     school: "School",
     salon: "Salon"
-  }
+  },
+  resultsListTitle: "Results list"
 };

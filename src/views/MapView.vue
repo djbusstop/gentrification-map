@@ -4,39 +4,23 @@
     <v-container>
       <v-app-bar color="transparent" flat>
         <v-spacer />
-        <!-- Locale selector -->
-        <v-menu bottom left>
-          <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on">
-              <v-icon>language</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item
-              v-for="locale in locales"
-              :key="locale.key"
-              v-on:click="changeLocale(locale.key)"
-            >
-              <v-list-item-title>
-                {{
-                  $vuetify.lang.t(`$vuetify.localeSelection.${locale.i18nKey}`)
-                }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <locale-selector />
       </v-app-bar>
 
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <h2>{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
+      <a>{{ $vuetify.lang.t("$vuetify.reportClosedPlace") }}</a>
+
+      <h2 class="mt-5">
+        {{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}
+      </h2>
       <places-type-filter
         :places-types="placesTypesFilterOptions"
         v-model="typeFilter"
       />
 
+      <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.resultsListTitle") }}</h2>
       <!-- Cards -->
       <!-- <place-card
         v-for="place in filteredPlaces"
@@ -52,6 +36,7 @@
 </template>
 
 <script>
+import LocaleSelector from "@/components/LocaleSelector";
 import PlacesMap from "@/components/PlacesMap";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 
@@ -71,21 +56,11 @@ export default {
       placesTypes: undefined,
       // Filters
       typeFilter: undefined,
-      placesLayerFilter: undefined,
-      // Settings
-      locales: [
-        {
-          i18nKey: "german",
-          key: "de"
-        },
-        {
-          i18nKey: "english",
-          key: "en"
-        }
-      ]
+      placesLayerFilter: undefined
     };
   },
   components: {
+    LocaleSelector,
     PlacesMap,
     PlacesTypeFilter
     // PlaceCard
@@ -114,11 +89,6 @@ export default {
         return typeFilterOptionsFromPlaces(this.closedPlaces);
       }
       return [];
-    }
-  },
-  methods: {
-    changeLocale(newLocale) {
-      this.$vuetify.lang.current = newLocale;
     }
   }
 };
