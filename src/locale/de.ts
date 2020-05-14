@@ -25,5 +25,7 @@ export default {
     communitySpace: "Gemeinschaftsraum",
     school: "Schüle",
     salon: "Salon"
-  }
+  },
+  resultsListTitle: "Geschlossene Orte",
+  closed: "Geschlossen"
 };

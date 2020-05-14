@@ -11,6 +11,7 @@
         v-for="locale in locales"
         :key="locale.key"
         v-on:click="changeLocale(locale.key)"
+        :disabled="$vuetify.lang.current === locale.key"
       >
         <v-list-item-title>
           {{ $vuetify.lang.t(`$vuetify.localeSelection.${locale.i18nKey}`) }}
@@ -24,12 +25,12 @@
 // Locale definitions
 const locales = [
   {
-    i18nKey: "german",
-    key: "de"
-  },
-  {
     i18nKey: "english",
     key: "en"
+  },
+  {
+    i18nKey: "german",
+    key: "de"
   }
 ];
 

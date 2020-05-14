@@ -4,7 +4,10 @@
     <v-container class="content">
       <v-app-bar color="transparent" flat>
         <v-spacer />
-        <v-btn icon>
+        <v-btn
+          icon
+          href="https://github.com/datadrivenpropaganda/gentrification-map/blob/master/README.md"
+        >
           <v-icon>code</v-icon>
         </v-btn>
         <locale-selector />
@@ -114,6 +117,7 @@ export default {
 .content {
   overflow-y: scroll;
 }
+
 .map-view-grid {
   height: 100vh;
   width: 100vw;
