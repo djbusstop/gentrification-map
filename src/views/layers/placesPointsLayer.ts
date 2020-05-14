@@ -22,7 +22,6 @@ export const placesPointsLayer = (places: FeatureCollection) => {
   // Style
   const style = ({ properties }: Feature<Point, PlaceFields>) => {
     const { placeType } = properties;
-    console.log(placeType);
     return {
       stroke: 0,
       fillColor: PlaceTypeColor[placeType],

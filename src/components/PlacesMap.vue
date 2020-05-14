@@ -24,7 +24,8 @@ export default {
   },
   data() {
     return {
-      map: null
+      map: undefined,
+      placesPoints: undefined
     };
   },
   async mounted() {
@@ -38,9 +39,16 @@ export default {
     // Create places layer and draw it on map
     places(placesList) {
       if (placesList) {
+        // Remove old points layer
+        if (this.placesPoints) {
+          this.map.removeLayer(this.placesPoints);
+        }
+        // Create feature collection
         const placesFeatureCollection = featureCollection(placesList);
-        const placesPoints = placesPointsLayer(placesFeatureCollection);
-        placesPoints.addTo(this.map);
+        // Create Layer
+        this.placesPoints = placesPointsLayer(placesFeatureCollection);
+        // Add layer to map
+        this.placesPoints.addTo(this.map);
       }
     }
   },

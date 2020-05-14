@@ -31,6 +31,9 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
+      <h2>Filter place type</h2>
+      <places-type-filter :places-types="placesTypes" v-model="typeFilter" />
+
       <!-- Cards -->
       <!-- <place-card
         v-for="place in filteredPlaces"
@@ -47,7 +50,8 @@
 
 <script>
 import PlacesMap from "@/components/PlacesMap";
-import PlaceCard from "@/components/PlaceCard";
+// import PlaceCard from "@/components/PlaceCard";
+import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 
 import { getClosedPlacesGeojson } from "@/api/airtable";
 
@@ -60,6 +64,18 @@ export default {
       openedPlaces: [],
       facingEvictionPlaces: [],
       // Inputs
+      placesTypes: [
+        {
+          key: "bar",
+          color: "brown"
+        },
+        {
+          key: "cafe",
+          color: "blue"
+        }
+      ],
+      typeFilter: undefined,
+      placesLayerFilter: undefined,
       // Settings
       locales: [
         {
@@ -74,7 +90,8 @@ export default {
     };
   },
   components: {
-    PlacesMap
+    PlacesMap,
+    PlacesTypeFilter
     // PlaceCard
   },
   async mounted() {
@@ -82,9 +99,18 @@ export default {
     this.closedPlaces = await getClosedPlacesGeojson();
   },
   computed: {
-    // Send the filtered places to the map
     filteredPlaces: function() {
       const allPlaces = [...this.closedPlaces];
+      // If there's filters
+      if (this.typeFilter != undefined && this.typeFilter.length > 0) {
+        // Filter places based on type
+        const filteredPlaces = allPlaces.filter((place) => {
+          // If the place type is included in the filter list
+          return this.typeFilter.includes(place.properties.placeType);
+        });
+        return filteredPlaces;
+      }
+      // Show all
       return allPlaces;
     }
   },
