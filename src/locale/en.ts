@@ -7,7 +7,24 @@ export default {
     german: "German",
     english: "English"
   },
+  // Page title and discriptions
   title: "Gentrification Map Neukölln",
   description:
-    "Mapping the change of use of commercial property in Neukölln. By tracking what places have closed or opened, and what those places are doing, we can see what changes are taking places in the neighbourhood  [Todo, create description of project]"
+    "Mapping the change of use of commercial property in Neukölln. By tracking what places have closed or opened, and what those places are doing, we can see what changes are taking places in the neighbourhood  [Todo, create description of project]",
+  filters: {
+    filterPlaceTypeTitle: "Filter place type"
+  },
+  placeTypes: {
+    bar: "Bar",
+    cafe: "Café",
+    clothingStore: "Clothing Store",
+    electronicsStore: "Electronics Shop",
+    grocery: "Grocery",
+    restaurant: "Restaurant",
+    repair: "Repair",
+    other: "Other",
+    communitySpace: "Community Space",
+    school: "School",
+    salon: "Salon"
+  }
 };

@@ -5,7 +5,7 @@
       :key="placeType.key"
       :color="placeType.color"
     >
-      {{ placeType.key }}
+      {{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType.key}`) }}
     </v-chip>
   </v-chip-group>
 </template>

@@ -31,7 +31,7 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <h2>Filter place type</h2>
+      <h2>{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter
         :places-types="placesTypesFilterOptions"
         v-model="typeFilter"
