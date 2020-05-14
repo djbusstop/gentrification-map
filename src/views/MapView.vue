@@ -32,7 +32,10 @@
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
       <h2>Filter place type</h2>
-      <places-type-filter :places-types="placesTypes" v-model="typeFilter" />
+      <places-type-filter
+        :places-types="placesTypesFilterOptions"
+        v-model="typeFilter"
+      />
 
       <!-- Cards -->
       <!-- <place-card
@@ -50,10 +53,10 @@
 
 <script>
 import PlacesMap from "@/components/PlacesMap";
-// import PlaceCard from "@/components/PlaceCard";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 
 import { getClosedPlacesGeojson } from "@/api/airtable";
+import { PlaceTypeColor } from "./layers/placesPointsLayer";
 
 export default {
   name: "MapView",
@@ -63,17 +66,9 @@ export default {
       closedPlaces: [],
       openedPlaces: [],
       facingEvictionPlaces: [],
-      // Inputs
-      placesTypes: [
-        {
-          key: "bar",
-          color: "brown"
-        },
-        {
-          key: "cafe",
-          color: "blue"
-        }
-      ],
+      // Input config
+      placesTypes: undefined,
+      // Filters
       typeFilter: undefined,
       placesLayerFilter: undefined,
       // Settings
@@ -112,6 +107,27 @@ export default {
       }
       // Show all
       return allPlaces;
+    },
+    placesTypesFilterOptions: function() {
+      if (this.closedPlaces) {
+        // Get unique values of closedPlaces placeTypes
+        const availableTypes = this.closedPlaces.reduce((acc, place) => {
+          // If place type already in list
+          if (acc.includes(place.properties.placeType)) {
+            return acc;
+          }
+          return [place.properties.placeType, ...acc];
+        }, []);
+
+        const availableTypesObjects = availableTypes.map((type) => {
+          return {
+            key: type,
+            color: PlaceTypeColor[type]
+          };
+        });
+        return availableTypesObjects;
+      }
+      return [];
     }
   },
   methods: {

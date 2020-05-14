@@ -3,18 +3,18 @@ import { FeatureCollection, Feature, Point } from "@turf/helpers";
 
 import { PlaceFields, PlaceType } from "@/api/airtable";
 
-enum PlaceTypeColor {
-  bar = "",
+export enum PlaceTypeColor {
+  bar = "yellow",
   cafe = "teal",
   clothingStore = "mediumblue",
-  electronicsStore = "",
+  electronicsStore = "purple",
   grocery = "deeppink",
   restaurant = "coral",
   repair = "forestgreen",
-  other = "",
-  communitySpace = "",
-  school = "",
-  salon = ""
+  other = "tomato",
+  communitySpace = "black",
+  school = "organge",
+  salon = "blue"
 }
 
 // Function that filters features by some property
