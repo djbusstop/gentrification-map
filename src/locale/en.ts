@@ -4,13 +4,13 @@ export default {
   ...en,
   localeSelection: {
     language: "Language",
-    german: "German",
+    german: "Deutsch",
     english: "English"
   },
   // Page title and discriptions
-  title: "Gentrification Map Neukölln",
+  title: "Displacement Map Neukölln",
   description:
-    "Mapping the closures of spaces that use of commercial property in Neukölln. By tracking what places have closed, and what those places are doing, we can see what changes are taking places in the neighbourhood.",
+    "Mapping the displacement of spaces that make up Neukölln's streetscape.",
   reportPlace:
     "If you know of a place that closed or is facing eviction in Neukölln, report it here.",
   filters: {

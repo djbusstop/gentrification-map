@@ -1,4 +1,4 @@
-# Neukölln Gentrification Map
+# Displacement Map Neukölln
 
 **Mapping the change of use of commercial property in Neukölln. By tracking what places have closed or opened, and what those places are used for, we can visualise the impacts of gentrification on our neighbourhood**
 
