@@ -33,6 +33,6 @@ export default {
     school: "School",
     salon: "Salon"
   },
-  resultsListTitle: "Closed places",
-  closed: "Closed"
+  closed: "Closed",
+  facingEviction: "Facing Eviction"
 };

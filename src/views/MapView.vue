@@ -21,8 +21,7 @@
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter :places-types="placesTypesFilterOptions" v-model="typeFilter" />
 
-      <h2 class="mt-5 mb-2">{{ $vuetify.lang.t("$vuetify.resultsListTitle") }}</h2>
-      <!-- Cards -->
+      <!-- Results List -->
       <place-card
         v-for="(place, index) in filteredPlaces"
         :key="index"
@@ -31,6 +30,7 @@
         :street="place.properties.street"
         :addressNumber="place.properties.addressNumber"
         :postcode="place.properties.postcode"
+        :table="place.properties.table"
         class="mb-5"
         v-on:click-map-icon="centerMapOnCardPlace(index)"
       />
@@ -83,17 +83,20 @@ export default {
   computed: {
     filteredPlaces: function() {
       const allPlaces = [...this.closedPlaces, ...this.facingEvictionPlaces];
-      // If there's filters
-      if (this.typeFilter != undefined && this.typeFilter.length > 0) {
-        // Filter places based on type
-        const filteredPlaces = allPlaces.filter(place => {
-          // If the place type is included in the filter list
-          return this.typeFilter.includes(place.properties.placeType);
-        });
-        return filteredPlaces;
-      }
-      // Show all
-      return allPlaces;
+      // Return either filtered places or all places
+      const filteredPlaces = this.filterPlaces(allPlaces);
+      // Sort
+      const sortedFilteredPlaces = filteredPlaces.sort(
+        ({ properties: firstProps }, { properties: secondProps }) => {
+          if (firstProps.table === "facingEvictionPlaces") {
+            console.log(firstProps.table, secondProps.table);
+            return -1;
+          }
+          if (secondProps.table == "facingEvictionPlaces") return 1;
+          return 0;
+        }
+      );
+      return sortedFilteredPlaces;
     },
     placesTypesFilterOptions: function() {
       if (this.closedPlaces) {
@@ -107,6 +110,19 @@ export default {
       const place = this.filteredPlaces[index];
       const { coordinates } = place.geometry;
       this.mapCenter = [...coordinates].reverse();
+    },
+    filterPlaces(allPlaces) {
+      // If there's filters
+      if (this.typeFilter != undefined && this.typeFilter.length > 0) {
+        // Filter places based on type
+        const filteredPlaces = allPlaces.filter(place => {
+          // If the place type is included in the filter list
+          return this.typeFilter.includes(place.properties.placeType);
+        });
+        return filteredPlaces;
+      }
+      // Show all
+      return allPlaces;
     }
   }
 };

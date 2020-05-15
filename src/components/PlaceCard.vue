@@ -12,12 +12,12 @@
       <p>{{ `${street} ${addressNumber} Berlin ${postcode || ""}` }}</p>
 
       <v-row class="mt-2">
-        <v-chip class="ml-2" small color="red">
-          {{ $vuetify.lang.t(`$vuetify.closed`) }}
-        </v-chip>
-        <v-chip class="ml-2" small :color="getPlaceTypeColor(placeType)">
-          {{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType}`) }}
-        </v-chip>
+        <v-chip class="ml-2" small :color="red">{{ $vuetify.lang.t(`$vuetify.${placeStatei18n}`) }}</v-chip>
+        <v-chip
+          class="ml-2"
+          small
+          :color="getPlaceTypeColor(placeType)"
+        >{{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType}`) }}</v-chip>
       </v-row>
     </v-container>
   </v-card>
@@ -45,6 +45,22 @@ export default {
     },
     postcode: {
       type: String
+    },
+    table: {
+      type: String
+    }
+  },
+  computed: {
+    facingEviction() {
+      return this.table === "facingEvictionPlaces";
+    },
+    closed() {
+      return this.table === "closedPlaces";
+    },
+    placeStatei18n() {
+      if (this.closed) return "closed";
+      if (this.facingEviction) return "facingEviction";
+      return "unknown";
     }
   },
   methods: {
