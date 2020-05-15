@@ -31,6 +31,7 @@
         :key="index"
         :name="place.properties.name"
         :placeType="place.properties.placeType"
+        :placeState="place.properties.placeState"
         :street="place.properties.street"
         :addressNumber="place.properties.addressNumber"
         :postcode="place.properties.postcode"
@@ -53,7 +54,7 @@ import PlaceCard from "@/components/PlaceCard";
 
 import { getPlacesGeojson } from "@/api/airtable";
 
-import { typeFilterOptionsFromPlaces, uniqueFilters } from "./utils";
+import { typeFilterOptionsFromPlaces } from "./utils";
 
 export default {
   name: "MapView",
@@ -86,11 +87,10 @@ export default {
       // Sort
       const sortedFilteredPlaces = filteredPlaces.sort(
         ({ properties: firstProps }, { properties: secondProps }) => {
-          if (firstProps.table === "facingEvictionPlaces") {
-            console.log(firstProps.table, secondProps.table);
+          if (firstProps.placeState === "facingEviction") {
             return -1;
           }
-          if (secondProps.table == "facingEvictionPlaces") return 1;
+          if (secondProps.placeState == "facingEviction") return 1;
           return 0;
         }
       );

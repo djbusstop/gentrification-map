@@ -56,6 +56,7 @@ export default {
   },
   computed: {
     facingEviction() {
+      console.log(this.placeState);
       return this.placeState === "facingEviction";
     },
     closed() {
