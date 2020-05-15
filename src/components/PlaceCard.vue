@@ -9,9 +9,8 @@
         </v-btn>
       </v-row>
 
-      <p>{{ `${street} ${addressNumber} Berlin ${postcode || ""}` }}</p>
-
-      <v-row class="mt-2">
+      <!-- Chips -->
+      <v-row class="mb-2">
         <v-chip
           class="ml-2"
           small
@@ -23,6 +22,16 @@
           :color="getPlaceTypeColor(placeType)"
         >{{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType}`) }}</v-chip>
       </v-row>
+
+      <!-- Address -->
+      <p class="mt-4 mb-2">{{ `${street} ${addressNumber}, Berlin ${postcode || ""}` }}</p>
+
+      <!-- More info link -->
+      <a
+        v-if="link"
+        :href="link"
+        target="_blank"
+      >{{ $vuetify.lang.t(`$vuetify.placeCard.moreInfoLink`) }}</a>
     </v-container>
   </v-card>
 </template>
@@ -51,6 +60,12 @@ export default {
       type: String
     },
     postcode: {
+      type: String
+    },
+    link: {
+      type: String
+    },
+    moreInfoText: {
       type: String
     }
   },

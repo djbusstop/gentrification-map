@@ -33,5 +33,8 @@ export default {
     closed: "Closed",
     facingEviction: "Facing Eviction",
     struggling: "Struggling"
+  },
+  placeCard: {
+    moreInfoLink: "More information"
   }
 };

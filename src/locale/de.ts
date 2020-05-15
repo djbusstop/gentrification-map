@@ -33,5 +33,8 @@ export default {
     closed: "Geschlossen",
     facingEviction: "drohende Zwangsräumung",
     struggling: "kämpfende"
+  },
+  placeCard: {
+    moreInfoLink: "More information"
   }
 };

@@ -7,6 +7,7 @@
         <v-btn
           icon
           href="https://github.com/datadrivenpropaganda/gentrification-map/blob/master/README.md"
+          target="_blank"
         >
           <v-icon>code</v-icon>
         </v-btn>
@@ -16,7 +17,10 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <a href="https://airtable.com/shrOgkjNoVXR5dYJt">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
+      <a
+        target="_blank"
+        href="https://airtable.com/shrOgkjNoVXR5dYJt"
+      >{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter
@@ -27,15 +31,16 @@
 
       <!-- Results List -->
       <place-card
-        v-for="(place, index) in filteredPlaces"
+        v-for="({ properties }, index) in filteredPlaces"
         :key="index"
-        :name="place.properties.name"
-        :placeType="place.properties.placeType"
-        :placeState="place.properties.placeState"
-        :street="place.properties.street"
-        :addressNumber="place.properties.addressNumber"
-        :postcode="place.properties.postcode"
-        :table="place.properties.table"
+        :name="properties.name"
+        :placeType="properties.placeType"
+        :placeState="properties.placeState"
+        :street="properties.street"
+        :addressNumber="properties.addressNumber"
+        :postcode="properties.postcode"
+        :link="properties.link"
+        :moreInfoText="properties.moreInfoText"
         class="mb-5"
         v-on:click-map-icon="centerMapOnCardPlace(index)"
       />
