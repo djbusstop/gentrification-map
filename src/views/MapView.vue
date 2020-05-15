@@ -15,11 +15,11 @@
       </v-app-bar>
 
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
-      <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
+      <!-- <p>{{ $vuetify.lang.t("$vuetify.description") }}</p> -->
 
       <a target="_blank" :href="localisedFormLink">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
-      <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
+      <h3 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h3>
       <places-type-filter
         class="mb-4"
         :places-types="placesTypesFilterOptions"

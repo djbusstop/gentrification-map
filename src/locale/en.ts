@@ -9,8 +9,7 @@ export default {
   },
   // Page title and discriptions
   title: "Displacement Map Neukölln",
-  description:
-    "Mapping the displacement of spaces that make up Neukölln's streetscape.",
+  description: "Mapping the displacement of spaces that make up our community.",
   reportPlace:
     "If you know of a place that closed or is facing eviction in Neukölln, report it here.",
   filters: {
@@ -31,7 +30,7 @@ export default {
   },
   placeStates: {
     closed: "Closed",
-    facingEviction: "Facing Eviction",
+    facingEviction: "Facing eviction",
     struggling: "Struggling"
   },
   placeCard: {

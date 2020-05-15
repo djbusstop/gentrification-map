@@ -8,7 +8,7 @@ export default {
     english: "English"
   },
   // Page title and description
-  title: "Gentrifizierungskarte Neukölln",
+  title: "Verdrängungskarte Neukölln",
   description: "",
   reportPlace:
     "Wenn Sie von einem Ort in Neukölln wissen, der geschlossen wurde oder dem die Räumung droht, melden Sie ihn hier",
@@ -31,7 +31,7 @@ export default {
   },
   placeStates: {
     closed: "Geschlossen",
-    facingEviction: "drohende Zwangsräumung",
+    facingEviction: "Verdrängungs risiko",
     struggling: "kämpfende"
   },
   placeCard: {
