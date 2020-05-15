@@ -105,7 +105,8 @@ export default {
   methods: {
     centerMapOnCardPlace: function(index) {
       const place = this.filteredPlaces[index];
-      this.mapCenter = place.geometry.coordinates.reverse();
+      const { coordinates } = place.geometry;
+      this.mapCenter = [...coordinates].reverse();
     }
   }
 };
