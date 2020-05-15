@@ -15,5 +15,5 @@ export enum PlaceTypeColor {
 export enum PlaceStateColor {
   closed = "#111111",
   facingEviction = "#a80000",
-  struggling = "#290d66"
+  struggling = "#554180"
 }

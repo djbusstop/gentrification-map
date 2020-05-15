@@ -17,10 +17,7 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <a
-        target="_blank"
-        href="https://airtable.com/shrOgkjNoVXR5dYJt"
-      >{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
+      <a target="_blank" :href="localisedFormLink">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter
@@ -95,6 +92,14 @@ export default {
     },
     placesTypesFilterOptions: function() {
       return typeFilterOptionsFromPlaces(this.places);
+    },
+    localisedFormLink: function() {
+      if (this.$vuetify.lang.current === "de") {
+        // German form
+        return "https://airtable.com/shrha1xtBUIpQwtGe";
+      }
+      // English form
+      return "https://airtable.com/shrOgkjNoVXR5dYJt";
     }
   },
   methods: {
@@ -139,15 +144,15 @@ export default {
   }
 }
 
-@media (max-width: 640px) {
-  .map-view-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 1000px) {
   .map-view-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .map-view-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
