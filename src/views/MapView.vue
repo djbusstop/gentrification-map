@@ -19,7 +19,11 @@
       <a>{{ $vuetify.lang.t("$vuetify.reportClosedPlace") }}</a>
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
-      <places-type-filter :places-types="placesTypesFilterOptions" v-model="typeFilter" />
+      <places-type-filter
+        class="mb-5"
+        :places-types="placesTypesFilterOptions"
+        v-model="typeFilter"
+      />
 
       <!-- Results List -->
       <place-card

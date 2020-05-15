@@ -3,7 +3,7 @@ import { FeatureCollection, Feature, Point } from "@turf/helpers";
 
 import { AnyPlaceFields } from "@/api/schemas";
 
-import { PlaceTypeColor } from "../styles";
+import { PlaceTypeColor, closedColor, facingEvictionColor } from "../styles";
 
 // Function that filters features by some property
 export const placesPointsLayer = (places: FeatureCollection) => {
@@ -11,8 +11,10 @@ export const placesPointsLayer = (places: FeatureCollection) => {
   const style = ({ properties }: Feature<Point, AnyPlaceFields>) => {
     const { placeType } = properties;
     return {
-      stroke: properties.table === "closedPlaces" ? 0 : 2,
-      color: properties.table === "closedPlaces" ? null : "#a80000",
+      stroke: 2,
+      opacity: 0.85,
+      color:
+        properties.table === "closedPlaces" ? closedColor : facingEvictionColor,
       fillColor: PlaceTypeColor[placeType],
       fillOpacity: 0.85
     };

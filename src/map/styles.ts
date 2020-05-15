@@ -11,3 +11,6 @@ export enum PlaceTypeColor {
   school = "#ff4500",
   salon = "#8b008b"
 }
+
+export const closedColor = "#111111";
+export const facingEvictionColor = `#a80000`;

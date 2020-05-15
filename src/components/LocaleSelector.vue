@@ -13,9 +13,7 @@
         v-on:click="changeLocale(locale.key)"
         :disabled="$vuetify.lang.current === locale.key"
       >
-        <v-list-item-title>
-          {{ $vuetify.lang.t(`$vuetify.localeSelection.${locale.i18nKey}`) }}
-        </v-list-item-title>
+        <v-list-item-title>{{ $vuetify.lang.t(`$vuetify.localeSelection.${locale.i18nKey}`) }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
