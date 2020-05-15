@@ -1,7 +1,7 @@
 import L from "leaflet";
 import { FeatureCollection, Feature, Point } from "@turf/helpers";
 
-import { PlaceFields } from "@/api/airtable";
+import { PlaceFields } from "@/api/schemas";
 
 import { PlaceTypeColor } from "../styles";
 

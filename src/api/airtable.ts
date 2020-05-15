@@ -7,34 +7,15 @@ import {
   FeatureCollection
 } from "@turf/helpers";
 import { getLocationMapboxApi } from "./mapbox";
+import {
+  PlaceType,
+  PlaceFields,
+  ClosedPlaceFields,
+  FacingEvictionPlaceFields
+} from "./schemas";
 
 const AIRTABLE_API_KEY = process.env.VUE_APP_AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.VUE_APP_AIRTABLE_BASE_ID;
-
-export type PlaceType =
-  | "bar"
-  | "cafe"
-  | "clothingStore"
-  | "electronicsStore"
-  | "grocery"
-  | "restaurant"
-  | "repair"
-  | "other"
-  | "communitySpace"
-  | "school"
-  | "salon";
-
-export interface PlaceFields {
-  id: string;
-  name: string;
-  noticedDate: Date;
-  placeType: PlaceType;
-  placeTypeIfOther: string;
-  isChain: boolean;
-  street: string;
-  addressNumber: string;
-  postcode: string;
-}
 
 // Airtable client
 const base = new Airtable({
@@ -56,8 +37,11 @@ const geocode = async (
 };
 
 const geocodeAndFeaturiseRow = async (place: {
-  fields: PlaceFields;
-}): Promise<Feature<Point, PlaceFields> | void> => {
+  fields: ClosedPlaceFields | FacingEvictionPlaceFields;
+}): Promise<Feature<
+  Point,
+  ClosedPlaceFields | FacingEvictionPlaceFields
+> | void> => {
   const { street, addressNumber, postcode } = place.fields;
   const location = await geocode(street, addressNumber, postcode);
   if (location) {
@@ -71,11 +55,13 @@ const geocodeAndFeaturiseRow = async (place: {
  */
 const getClosedPlacesGeojson = async (): Promise<Feature<
   Point,
-  PlaceFields
+  ClosedPlaceFields
 >[]> => {
   // Get results from the table
   // @ts-ignore
-  const closedPlacesRows: { fields: Place }[] = await base("closedPlaces")
+  const closedPlacesRows: { fields: ClosedPlaceFields }[] = await base(
+    "closedPlaces"
+  )
     .select({ view: "Grid view" })
     .all();
 
@@ -90,7 +76,7 @@ const getClosedPlacesGeojson = async (): Promise<Feature<
     (place) => place != undefined
   );
 
-  return closedPlacesPoints as Feature<Point, PlaceFields>[];
+  return closedPlacesPoints as Feature<Point, ClosedPlaceFields>[];
 };
 
 export { getClosedPlacesGeojson };

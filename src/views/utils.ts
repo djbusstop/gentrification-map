@@ -1,7 +1,11 @@
 import { Feature, Point } from "@turf/helpers";
-import { PlaceFields, PlaceType } from "@/api/airtable";
+import { PlaceFields, PlaceType } from "@/api/schemas";
 import { PlaceTypeColor } from "@/map/styles";
 
+/**
+ * Returns an object which is passed to the filter component as the
+ * options to display
+ */
 export const typeFilterOptionsFromPlaces = (
   places: Feature<Point, PlaceFields>[]
 ): { key: PlaceType; color: PlaceTypeColor }[] => {
