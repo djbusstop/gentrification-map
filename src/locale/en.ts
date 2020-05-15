@@ -13,7 +13,8 @@ export default {
   reportPlace:
     "If you know of a place that closed or is facing eviction in Neukölln, report it here.",
   filters: {
-    filterPlaceTypeTitle: "Filter place type"
+    placeTypeTitle: "Place type",
+    placeStateTitle: "Place status"
   },
   placeTypes: {
     bar: "Bar",

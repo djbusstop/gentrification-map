@@ -19,7 +19,12 @@
 
       <a target="_blank" :href="localisedFormLink">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
-      <h3 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h3>
+      <filter-chips
+        class="mt-7"
+        i18nKey="placeStates"
+        :options="placesStatesFilterOptions"
+        v-model="stateFilter"
+      />
       <filter-chips
         i18nKey="placeTypes"
         class="mb-4"
@@ -57,7 +62,11 @@ import FilterChips from "@/components/FilterChips";
 
 import { getPlacesGeojson } from "@/api/airtable";
 
-import { typeFilterOptionsFromPlaces, sortPlaces } from "./utils";
+import {
+  typeFilterOptionsFromPlaces,
+  stateFilterOptionsFromPlaces,
+  sortPlaces
+} from "./utils";
 
 export default {
   name: "MapView",
@@ -69,8 +78,10 @@ export default {
       places: [],
       // Input config
       placesTypes: undefined,
+      placesStates: undefined,
       // Filters
-      typeFilter: undefined
+      typeFilter: [],
+      stateFilter: []
     };
   },
   components: {
@@ -94,6 +105,9 @@ export default {
     placesTypesFilterOptions: function() {
       return typeFilterOptionsFromPlaces(this.places);
     },
+    placesStatesFilterOptions: function() {
+      return stateFilterOptionsFromPlaces(this.places);
+    },
     localisedFormLink: function() {
       if (this.$vuetify.lang.current === "de") {
         // German form
@@ -110,12 +124,24 @@ export default {
       this.mapCenter = [...coordinates].reverse();
     },
     filterPlaces(allPlaces) {
-      // If there's filters
-      if (this.typeFilter != undefined && this.typeFilter.length > 0) {
-        // Filter places based on type
+      const hasTypeFilter =
+        this.typeFilter != undefined && this.typeFilter.length > 0;
+      const hasStateFilter =
+        this.stateFilter != undefined && this.stateFilter.length > 0;
+      // If there are filters
+      if (hasTypeFilter || hasStateFilter) {
         const filteredPlaces = allPlaces.filter(place => {
           // If the place type is included in the filter list
-          return this.typeFilter.includes(place.properties.placeType);
+          if (hasStateFilter && !hasTypeFilter) {
+            return this.stateFilter.includes(place.properties.placeState);
+          }
+          if (hasTypeFilter && !hasStateFilter) {
+            return this.typeFilter.includes(place.properties.placeType);
+          }
+          return (
+            this.typeFilter.includes(place.properties.placeType) &&
+            this.stateFilter.includes(place.properties.placeState)
+          );
         });
         return filteredPlaces;
       }

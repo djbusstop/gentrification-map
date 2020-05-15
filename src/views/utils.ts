@@ -1,10 +1,10 @@
 import { Feature, Point } from "@turf/helpers";
-import { PlaceFields, PlaceType } from "@/api/schemas";
-import { PlaceTypeColor } from "@/map/styles";
+import { PlaceFields, PlaceType, PlaceState } from "@/api/schemas";
+import { PlaceTypeColor, PlaceStateColor } from "@/map/styles";
 
 interface FilterOption {
-  key: PlaceType;
-  color: PlaceTypeColor;
+  key: PlaceType | PlaceState;
+  color: PlaceTypeColor | PlaceStateColor;
 }
 
 /**
@@ -70,4 +70,32 @@ export const typeFilterOptionsFromPlaces = (
     };
   });
   return availableTypesObjects;
+};
+
+/**
+ * Returns an object which is passed to the filter component as the
+ * options to display
+ */
+export const stateFilterOptionsFromPlaces = (
+  places: Feature<Point, PlaceFields>[]
+): FilterOption[] => {
+  // Get unique values of closedPlaces placeTypes
+  const availableStates = places.reduce(
+    (acc: string[], place: Feature<Point, PlaceFields>) => {
+      // If place type already in list
+      if (acc.includes(place.properties.placeState)) {
+        return acc;
+      }
+      return [place.properties.placeState, ...acc];
+    },
+    []
+  );
+  // Map the unique types to the config
+  const availableStatesObjects = availableStates.map((type) => {
+    return {
+      key: type as PlaceState,
+      color: PlaceStateColor[type as PlaceState]
+    };
+  });
+  return availableStatesObjects;
 };
