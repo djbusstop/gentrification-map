@@ -20,7 +20,7 @@
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter
-        class="mb-5"
+        class="mb-4"
         :places-types="placesTypesFilterOptions"
         v-model="typeFilter"
       />
@@ -56,7 +56,7 @@ import {
   getFacingEvictionPlacesGeojson
 } from "@/api/airtable";
 
-import { typeFilterOptionsFromPlaces } from "./utils";
+import { typeFilterOptionsFromPlaces, uniqueFilters } from "./utils";
 
 export default {
   name: "MapView",
@@ -103,10 +103,19 @@ export default {
       return sortedFilteredPlaces;
     },
     placesTypesFilterOptions: function() {
-      if (this.closedPlaces) {
-        return typeFilterOptionsFromPlaces(this.closedPlaces);
-      }
-      return [];
+      const closedPlacesFilters = typeFilterOptionsFromPlaces(
+        this.closedPlaces
+      );
+      const facingEvictionPlacesFilters = typeFilterOptionsFromPlaces(
+        this.facingEvictionPlaces
+      );
+      // Return unique filters
+      const allFilters = [
+        ...closedPlacesFilters,
+        ...facingEvictionPlacesFilters
+      ];
+
+      return uniqueFilters(allFilters);
     }
   },
   methods: {

@@ -1,12 +1,10 @@
 <template>
   <v-chip-group column multiple v-model="selectedTypes">
     <v-chip
-      v-for="placeType in placesTypes"
-      :key="placeType.key"
+      v-for="(placeType, index) in placesTypes"
+      :key="index"
       :color="placeType.color"
-    >
-      {{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType.key}`) }}
-    </v-chip>
+    >{{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType.key}`) }}</v-chip>
   </v-chip-group>
 </template>
 
@@ -26,7 +24,7 @@ export default {
   watch: {
     selectedTypes(newValue) {
       // Build list of keys
-      const keysList = newValue.map((index) => {
+      const keysList = newValue.map(index => {
         return this.placesTypes[index].key;
       });
       this.$emit("input", keysList);

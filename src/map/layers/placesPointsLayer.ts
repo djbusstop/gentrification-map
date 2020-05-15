@@ -16,7 +16,7 @@ export const placesPointsLayer = (places: FeatureCollection) => {
       color:
         properties.table === "closedPlaces" ? closedColor : facingEvictionColor,
       fillColor: PlaceTypeColor[placeType],
-      fillOpacity: 0.85
+      fillOpacity: 0.75
     };
   };
 
