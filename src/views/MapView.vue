@@ -16,7 +16,7 @@
       <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <p>{{ $vuetify.lang.t("$vuetify.description") }}</p>
 
-      <a>{{ $vuetify.lang.t("$vuetify.reportClosedPlace") }}</a>
+      <a href="https://airtable.com/shrOgkjNoVXR5dYJt">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
       <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
       <places-type-filter

@@ -11,12 +11,8 @@ export default {
   title: "Gentrification Map Neukölln",
   description:
     "Mapping the closures of spaces that use of commercial property in Neukölln. By tracking what places have closed, and what those places are doing, we can see what changes are taking places in the neighbourhood.",
-  reportClosedPlace:
-    "If you noticed a place has closed in Neukölln, report it here.",
-  reportOpenedPlace:
-    "If you noticed a place has closed in Neukölln, report it here.",
-  reportPlaceFacingEviction:
-    "If you know of a place facing eviction, report it here.",
+  reportPlace:
+    "If you know of a place that closed or is facing eviction in Neukölln, report it here.",
   filters: {
     filterPlaceTypeTitle: "Filter place type"
   },
