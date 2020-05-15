@@ -153,6 +153,7 @@ export default {
 @media (max-width: 640px) {
   .map-view-grid {
     grid-template-columns: 1fr;
+    grid-auto-rows: 50vh 50vh;
   }
 }
 </style>
