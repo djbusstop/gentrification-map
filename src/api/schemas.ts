@@ -36,3 +36,5 @@ export interface FacingEvictionPlaceFields extends PlaceFields {
   moreInfo?: string;
   date?: string;
 }
+
+export type AnyPlaceFields = ClosedPlaceFields | FacingEvictionPlaceFields;

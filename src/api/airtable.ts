@@ -1,15 +1,8 @@
 import Airtable from "airtable";
-import {
-  point,
-  featureCollection,
-  Feature,
-  Point,
-  FeatureCollection
-} from "@turf/helpers";
+import { point, Feature, Point } from "@turf/helpers";
 import { getLocationMapboxApi } from "./mapbox";
 import {
-  PlaceType,
-  PlaceFields,
+  AnyPlaceFields,
   ClosedPlaceFields,
   FacingEvictionPlaceFields
 } from "./schemas";
@@ -36,47 +29,58 @@ const geocode = async (
   return location;
 };
 
-const geocodeAndFeaturiseRow = async (place: {
-  fields: ClosedPlaceFields | FacingEvictionPlaceFields;
-}): Promise<Feature<
-  Point,
-  ClosedPlaceFields | FacingEvictionPlaceFields
-> | void> => {
-  const { street, addressNumber, postcode } = place.fields;
+const geocodeAndFeaturiseRow = async (
+  fields: AnyPlaceFields
+): Promise<Feature<Point, AnyPlaceFields> | void> => {
+  const { street, addressNumber, postcode } = fields;
   const location = await geocode(street, addressNumber, postcode);
   if (location) {
-    return point(location, place.fields);
+    return point(location, fields);
   }
   return;
 };
 
 /**
- * Returns a feature collection of the geocoded places in the closedPlaces table
+ * Pass the table name in the airtable to get all rows and then geocode them
+ * by the fields: "street", "addressNumber", "postcode".
+ *
+ * Pass the type to the function of the expected properties in each feature
+ * @param tableName
  */
-const getClosedPlacesGeojson = async (): Promise<Feature<
-  Point,
-  ClosedPlaceFields
->[]> => {
+type TableName = "closedPlaces" | "facingEvictionPlaces";
+
+const getPlacesFromTableGeojson = async <AnyPlaceFields>(
+  tableName: TableName
+): Promise<Feature<Point, AnyPlaceFields>[]> => {
   // Get results from the table
   // @ts-ignore
-  const closedPlacesRows: { fields: ClosedPlaceFields }[] = await base(
-    "closedPlaces"
-  )
+  const placesRows: { fields: AnyPlaceFields }[] = await base(tableName)
     .select({ view: "Grid view" })
     .all();
 
   // Geocode results and return list of geojson features
-  const geocodedClosedPlaces = await Promise.all(
+  const geocodedPlaces = await Promise.all(
     // For each result in the database
-    closedPlacesRows.map((row) => geocodeAndFeaturiseRow(row))
+    // @ts-ignore
+    placesRows.map((row) => geocodeAndFeaturiseRow(row.fields))
   );
 
   // Only return places that have been geocoded
-  const closedPlacesPoints = geocodedClosedPlaces.filter(
-    (place) => place != undefined
-  );
+  const placesPoints = geocodedPlaces.filter((place) => place != undefined);
 
-  return closedPlacesPoints as Feature<Point, ClosedPlaceFields>[];
+  return placesPoints as Feature<Point, AnyPlaceFields>[];
 };
 
-export { getClosedPlacesGeojson };
+export const getClosedPlacesGeojson = async (): Promise<Feature<
+  Point,
+  ClosedPlaceFields
+>[]> => {
+  return getPlacesFromTableGeojson<ClosedPlaceFields>("closedPlaces");
+};
+
+export const getFacingEvictionPlacesGeojson = async (): Promise<Feature<
+  Point,
+  FacingEvictionPlaceFields
+>[]> => {
+  return getPlacesFromTableGeojson<ClosedPlaceFields>("facingEvictionPlaces");
+};

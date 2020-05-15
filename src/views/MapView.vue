@@ -18,17 +18,10 @@
 
       <a>{{ $vuetify.lang.t("$vuetify.reportClosedPlace") }}</a>
 
-      <h2 class="mt-5">
-        {{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}
-      </h2>
-      <places-type-filter
-        :places-types="placesTypesFilterOptions"
-        v-model="typeFilter"
-      />
+      <h2 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h2>
+      <places-type-filter :places-types="placesTypesFilterOptions" v-model="typeFilter" />
 
-      <h2 class="mt-5 mb-2">
-        {{ $vuetify.lang.t("$vuetify.resultsListTitle") }}
-      </h2>
+      <h2 class="mt-5 mb-2">{{ $vuetify.lang.t("$vuetify.resultsListTitle") }}</h2>
       <!-- Cards -->
       <place-card
         v-for="(place, index) in filteredPlaces"
@@ -88,7 +81,7 @@ export default {
       // If there's filters
       if (this.typeFilter != undefined && this.typeFilter.length > 0) {
         // Filter places based on type
-        const filteredPlaces = allPlaces.filter((place) => {
+        const filteredPlaces = allPlaces.filter(place => {
           // If the place type is included in the filter list
           return this.typeFilter.includes(place.properties.placeType);
         });
