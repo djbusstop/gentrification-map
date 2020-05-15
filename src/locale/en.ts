@@ -29,6 +29,9 @@ export default {
     school: "School",
     salon: "Salon"
   },
-  closed: "Closed",
-  facingEviction: "Facing Eviction"
+  placeStates: {
+    closed: "Closed",
+    facingEviction: "Facing Eviction",
+    struggling: "Struggling"
+  }
 };

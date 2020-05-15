@@ -29,6 +29,9 @@ export default {
     school: "Schüle",
     salon: "Salon"
   },
-  closed: "Geschlossen",
-  facingEviction: "drohende Zwangsräumung"
+  placeStates: {
+    closed: "Geschlossen",
+    facingEviction: "drohende Zwangsräumung",
+    struggling: "kämpfende"
+  }
 };

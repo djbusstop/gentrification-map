@@ -54,7 +54,7 @@ import PlaceCard from "@/components/PlaceCard";
 
 import { getPlacesGeojson } from "@/api/airtable";
 
-import { typeFilterOptionsFromPlaces } from "./utils";
+import { typeFilterOptionsFromPlaces, sortPlaces } from "./utils";
 
 export default {
   name: "MapView",
@@ -85,15 +85,7 @@ export default {
       // Return either filtered places or all places
       const filteredPlaces = this.filterPlaces(this.places);
       // Sort
-      const sortedFilteredPlaces = filteredPlaces.sort(
-        ({ properties: firstProps }, { properties: secondProps }) => {
-          if (firstProps.placeState === "facingEviction") {
-            return -1;
-          }
-          if (secondProps.placeState == "facingEviction") return 1;
-          return 0;
-        }
-      );
+      const sortedFilteredPlaces = sortPlaces(filteredPlaces);
       return sortedFilteredPlaces;
     },
     placesTypesFilterOptions: function() {

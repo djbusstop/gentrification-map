@@ -3,7 +3,7 @@
  * When changing The Airtable schemas, these must be updated.
  */
 
-export type PlaceState = "closed" | "facingEviction";
+export type PlaceState = "closed" | "facingEviction" | "struggling";
 
 export type PlaceType =
   | "bar"

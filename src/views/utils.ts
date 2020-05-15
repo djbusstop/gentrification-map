@@ -28,6 +28,22 @@ export const uniqueFilters = (filters: FilterOption[]): FilterOption[] => {
   }, []);
 };
 
+export const sortPlaces = (places: Feature<Point, PlaceFields>[]) => {
+  return places.sort(
+    ({ properties: firstProps }, { properties: secondProps }) => {
+      // Put facing eviction to the front
+      if (firstProps.placeState === "facingEviction") {
+        return -1;
+      }
+      if (secondProps.placeState == "facingEviction") return 1;
+
+      // Put closed at the end
+      if (firstProps.placeState === "closed") return 1;
+      return 0;
+    }
+  );
+};
+
 /**
  * Returns an object which is passed to the filter component as the
  * options to display

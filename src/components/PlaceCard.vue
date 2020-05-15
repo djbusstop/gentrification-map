@@ -16,7 +16,7 @@
           class="ml-2"
           small
           :color="placeStateChipColor"
-        >{{ $vuetify.lang.t(`$vuetify.${placeState}`) }}</v-chip>
+        >{{ $vuetify.lang.t(`$vuetify.placeStates.${placeState}`) }}</v-chip>
         <v-chip
           class="ml-2"
           small
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { PlaceTypeColor, closedColor, facingEvictionColor } from "@/map/styles";
+import { PlaceTypeColor, PlaceStateColor } from "@/map/styles";
 export default {
   name: "PlaceCard",
   props: {
@@ -55,17 +55,8 @@ export default {
     }
   },
   computed: {
-    facingEviction() {
-      console.log(this.placeState);
-      return this.placeState === "facingEviction";
-    },
-    closed() {
-      return this.placeState === "closed";
-    },
     placeStateChipColor() {
-      if (this.closed) return closedColor;
-      if (this.facingEviction) return facingEvictionColor;
-      return "";
+      return PlaceStateColor[this.placeState] || "";
     }
   },
   methods: {
