@@ -31,10 +31,10 @@ export default {
   },
   placeStates: {
     closed: "Geschlossen",
-    facingEviction: "Verdrängungs risiko",
+    facingEviction: "Verdrängungsrisiko",
     struggling: "kämpfende"
   },
   placeCard: {
-    moreInfoLink: "More information"
+    moreInfoLink: "weitere Informationen"
   }
 };
