@@ -138,4 +138,16 @@ export default {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .map-view-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1000px) {
+  .map-view-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 </style>
