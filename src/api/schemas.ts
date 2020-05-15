@@ -3,7 +3,7 @@
  * When changing The Airtable schemas, these must be updated.
  */
 
-export type TableName = "closedPlaces" | "facingEvictionPlaces";
+export type PlaceState = "closed" | "facingEviction";
 
 export type PlaceType =
   | "bar"
@@ -19,25 +19,16 @@ export type PlaceType =
   | "salon";
 
 export interface PlaceFields {
-  table: string;
   id: string;
   name: string;
+  placeState: PlaceState;
   placeType: PlaceType;
   placeTypeIfOther: string;
   isChain: boolean;
+  link: string;
+  moreInfoText: string;
   street: string;
   addressNumber: string;
   postcode: string;
+  city: string;
 }
-
-export interface ClosedPlaceFields extends PlaceFields {
-  noticedDate: Date;
-}
-
-export interface FacingEvictionPlaceFields extends PlaceFields {
-  link?: string;
-  moreInfo?: string;
-  date?: string;
-}
-
-export type AnyPlaceFields = ClosedPlaceFields | FacingEvictionPlaceFields;

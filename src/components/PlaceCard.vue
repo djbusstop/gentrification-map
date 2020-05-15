@@ -16,7 +16,7 @@
           class="ml-2"
           small
           :color="placeStateChipColor"
-        >{{ $vuetify.lang.t(`$vuetify.${placeStatei18n}`) }}</v-chip>
+        >{{ $vuetify.lang.t(`$vuetify.${placeState}`) }}</v-chip>
         <v-chip
           class="ml-2"
           small
@@ -41,6 +41,9 @@ export default {
     placeType: {
       type: String
     },
+    placeState: {
+      type: String
+    },
     street: {
       type: String
     },
@@ -49,22 +52,14 @@ export default {
     },
     postcode: {
       type: String
-    },
-    table: {
-      type: String
     }
   },
   computed: {
     facingEviction() {
-      return this.table === "facingEvictionPlaces";
+      return this.placeState === "facingEviction";
     },
     closed() {
-      return this.table === "closedPlaces";
-    },
-    placeStatei18n() {
-      if (this.closed) return "closed";
-      if (this.facingEviction) return "facingEviction";
-      return "unknown";
+      return this.placeState === "closed";
     },
     placeStateChipColor() {
       if (this.closed) return closedColor;

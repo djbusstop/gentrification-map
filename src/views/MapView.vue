@@ -1,7 +1,7 @@
 <template>
   <div class="map-view-grid">
     <!-- Sidebar -->
-    <v-container id="content-container" class="content">
+    <v-container class="content">
       <v-app-bar color="transparent" flat>
         <v-spacer />
         <v-btn
@@ -41,7 +41,7 @@
     </v-container>
 
     <!-- Map -->
-    <places-map id="map-container" :map-center="mapCenter" :places="filteredPlaces" />
+    <places-map :map-center="mapCenter" :places="filteredPlaces" />
   </div>
 </template>
 
@@ -51,10 +51,7 @@ import PlacesMap from "@/components/PlacesMap";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 import PlaceCard from "@/components/PlaceCard";
 
-import {
-  getClosedPlacesGeojson,
-  getFacingEvictionPlacesGeojson
-} from "@/api/airtable";
+import { getPlacesGeojson } from "@/api/airtable";
 
 import { typeFilterOptionsFromPlaces, uniqueFilters } from "./utils";
 
@@ -65,8 +62,7 @@ export default {
       // Default map position
       mapCenter: [52.476, 13.4432],
       // Places data
-      closedPlaces: [],
-      facingEvictionPlaces: [],
+      places: [],
       // Input config
       placesTypes: undefined,
       // Filters
@@ -80,15 +76,13 @@ export default {
     PlaceCard
   },
   async mounted() {
-    // Get features from backends
-    this.closedPlaces = await getClosedPlacesGeojson();
-    this.facingEvictionPlaces = await getFacingEvictionPlacesGeojson();
+    // Get features
+    this.places = await getPlacesGeojson();
   },
   computed: {
     filteredPlaces: function() {
-      const allPlaces = [...this.closedPlaces, ...this.facingEvictionPlaces];
       // Return either filtered places or all places
-      const filteredPlaces = this.filterPlaces(allPlaces);
+      const filteredPlaces = this.filterPlaces(this.places);
       // Sort
       const sortedFilteredPlaces = filteredPlaces.sort(
         ({ properties: firstProps }, { properties: secondProps }) => {
@@ -103,19 +97,7 @@ export default {
       return sortedFilteredPlaces;
     },
     placesTypesFilterOptions: function() {
-      const closedPlacesFilters = typeFilterOptionsFromPlaces(
-        this.closedPlaces
-      );
-      const facingEvictionPlacesFilters = typeFilterOptionsFromPlaces(
-        this.facingEvictionPlaces
-      );
-      // Return unique filters
-      const allFilters = [
-        ...closedPlacesFilters,
-        ...facingEvictionPlacesFilters
-      ];
-
-      return uniqueFilters(allFilters);
+      return typeFilterOptionsFromPlaces(this.places);
     }
   },
   methods: {

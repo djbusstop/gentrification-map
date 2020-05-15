@@ -1,12 +1,7 @@
 import Airtable from "airtable";
 import { point, Feature, Point } from "@turf/helpers";
 import { getLocationMapboxApi } from "./mapbox";
-import {
-  TableName,
-  AnyPlaceFields,
-  ClosedPlaceFields,
-  FacingEvictionPlaceFields
-} from "./schemas";
+import { PlaceFields } from "./schemas";
 
 const AIRTABLE_API_KEY = process.env.VUE_APP_AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.VUE_APP_AIRTABLE_BASE_ID;
@@ -31,8 +26,8 @@ const geocode = async (
 };
 
 const geocodeAndFeaturiseRow = async (
-  fields: AnyPlaceFields
-): Promise<Feature<Point, AnyPlaceFields> | void> => {
+  fields: PlaceFields
+): Promise<Feature<Point, PlaceFields> | void> => {
   const { street, addressNumber, postcode } = fields;
   const location = await geocode(street, addressNumber, postcode);
   if (location) {
@@ -41,19 +36,13 @@ const geocodeAndFeaturiseRow = async (
   return;
 };
 
-/**
- * Pass the table name in the airtable to get all rows and then geocode them
- * by the fields: "street", "addressNumber", "postcode".
- *
- * Pass the type to the function of the expected properties in each feature
- * @param tableName
- */
-const getPlacesFromTableGeojson = async <AnyPlaceFields>(
-  tableName: TableName
-): Promise<Feature<Point, AnyPlaceFields>[]> => {
+export const getPlacesGeojson = async <PlaceFields>(): Promise<Feature<
+  Point,
+  PlaceFields
+>[]> => {
   // Get results from the table
   // @ts-ignore
-  const placesRows: { fields: AnyPlaceFields }[] = await base(tableName)
+  const placesRows: { fields: PlaceFields }[] = await base("places")
     .select({ view: "Grid view" })
     .all();
 
@@ -66,21 +55,5 @@ const getPlacesFromTableGeojson = async <AnyPlaceFields>(
   // Only return places that have been geocoded
   const placesPoints = geocodedPlaces.filter((place) => place != undefined);
 
-  return placesPoints as Feature<Point, AnyPlaceFields>[];
-};
-
-export const getClosedPlacesGeojson = async (): Promise<Feature<
-  Point,
-  ClosedPlaceFields
->[]> => {
-  return await getPlacesFromTableGeojson<ClosedPlaceFields>("closedPlaces");
-};
-
-export const getFacingEvictionPlacesGeojson = async (): Promise<Feature<
-  Point,
-  FacingEvictionPlaceFields
->[]> => {
-  return await getPlacesFromTableGeojson<FacingEvictionPlaceFields>(
-    "facingEvictionPlaces"
-  );
+  return placesPoints as Feature<Point, PlaceFields>[];
 };
