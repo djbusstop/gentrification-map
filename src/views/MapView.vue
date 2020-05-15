@@ -14,7 +14,7 @@
         <locale-selector />
       </v-app-bar>
 
-      <h1>{{ $vuetify.lang.t("$vuetify.title") }}</h1>
+      <h1 class="mb-5">{{ $vuetify.lang.t("$vuetify.title") }}</h1>
       <!-- <p>{{ $vuetify.lang.t("$vuetify.description") }}</p> -->
 
       <a target="_blank" :href="localisedFormLink">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
