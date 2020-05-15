@@ -47,7 +47,10 @@ import PlacesMap from "@/components/PlacesMap";
 import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 import PlaceCard from "@/components/PlaceCard";
 
-import { getClosedPlacesGeojson } from "@/api/airtable";
+import {
+  getClosedPlacesGeojson,
+  getFacingEvictionPlacesGeojson
+} from "@/api/airtable";
 
 import { typeFilterOptionsFromPlaces } from "./utils";
 
@@ -59,6 +62,7 @@ export default {
       mapCenter: [52.476, 13.4432],
       // Places data
       closedPlaces: [],
+      facingEvictionPlaces: [],
       // Input config
       placesTypes: undefined,
       // Filters
@@ -74,10 +78,11 @@ export default {
   async mounted() {
     // Get features from backends
     this.closedPlaces = await getClosedPlacesGeojson();
+    this.facingEvictionPlaces = await getFacingEvictionPlacesGeojson();
   },
   computed: {
     filteredPlaces: function() {
-      const allPlaces = [...this.closedPlaces];
+      const allPlaces = [...this.closedPlaces, ...this.facingEvictionPlaces];
       // If there's filters
       if (this.typeFilter != undefined && this.typeFilter.length > 0) {
         // Filter places based on type

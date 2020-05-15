@@ -1,17 +1,18 @@
 import L from "leaflet";
 import { FeatureCollection, Feature, Point } from "@turf/helpers";
 
-import { PlaceFields } from "@/api/schemas";
+import { AnyPlaceFields } from "@/api/schemas";
 
 import { PlaceTypeColor } from "../styles";
 
 // Function that filters features by some property
 export const placesPointsLayer = (places: FeatureCollection) => {
   // Style
-  const style = ({ properties }: Feature<Point, PlaceFields>) => {
+  const style = ({ properties }: Feature<Point, AnyPlaceFields>) => {
     const { placeType } = properties;
     return {
-      stroke: 0,
+      stroke: properties.table === "closedPlaces" ? 0 : 2,
+      color: properties.table === "closedPlaces" ? null : "#a80000",
       fillColor: PlaceTypeColor[placeType],
       fillOpacity: 0.85
     };

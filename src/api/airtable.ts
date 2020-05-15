@@ -2,6 +2,7 @@ import Airtable from "airtable";
 import { point, Feature, Point } from "@turf/helpers";
 import { getLocationMapboxApi } from "./mapbox";
 import {
+  TableName,
   AnyPlaceFields,
   ClosedPlaceFields,
   FacingEvictionPlaceFields
@@ -47,8 +48,6 @@ const geocodeAndFeaturiseRow = async (
  * Pass the type to the function of the expected properties in each feature
  * @param tableName
  */
-type TableName = "closedPlaces" | "facingEvictionPlaces";
-
 const getPlacesFromTableGeojson = async <AnyPlaceFields>(
   tableName: TableName
 ): Promise<Feature<Point, AnyPlaceFields>[]> => {
@@ -60,8 +59,7 @@ const getPlacesFromTableGeojson = async <AnyPlaceFields>(
 
   // Geocode results and return list of geojson features
   const geocodedPlaces = await Promise.all(
-    // For each result in the database
-    // @ts-ignore
+    // @ts-ignore TODO: Fix
     placesRows.map((row) => geocodeAndFeaturiseRow(row.fields))
   );
 
@@ -75,12 +73,14 @@ export const getClosedPlacesGeojson = async (): Promise<Feature<
   Point,
   ClosedPlaceFields
 >[]> => {
-  return getPlacesFromTableGeojson<ClosedPlaceFields>("closedPlaces");
+  return await getPlacesFromTableGeojson<ClosedPlaceFields>("closedPlaces");
 };
 
 export const getFacingEvictionPlacesGeojson = async (): Promise<Feature<
   Point,
   FacingEvictionPlaceFields
 >[]> => {
-  return getPlacesFromTableGeojson<ClosedPlaceFields>("facingEvictionPlaces");
+  return await getPlacesFromTableGeojson<FacingEvictionPlaceFields>(
+    "facingEvictionPlaces"
+  );
 };

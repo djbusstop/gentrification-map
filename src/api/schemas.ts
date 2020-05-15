@@ -3,6 +3,8 @@
  * When changing The Airtable schemas, these must be updated.
  */
 
+export type TableName = "closedPlaces" | "facingEvictionPlaces";
+
 export type PlaceType =
   | "bar"
   | "cafe"
@@ -17,6 +19,7 @@ export type PlaceType =
   | "salon";
 
 export interface PlaceFields {
+  table: string;
   id: string;
   name: string;
   placeType: PlaceType;
