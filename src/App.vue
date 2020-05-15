@@ -15,3 +15,10 @@ export default Vue.extend({
   components: {}
 });
 </script>
+
+<style>
+/* Style overrides */
+.leaflet-control-attribution leaflet-control {
+  color: black !important;
+}
+</style>

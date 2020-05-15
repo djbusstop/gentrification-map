@@ -5,7 +5,7 @@ export default {
   localeSelection: {
     language: "Sprache",
     german: "Deutsch",
-    english: "Englisch"
+    english: "English"
   },
   // Page title and description
   title: "Gentrifizierungskarte Neukölln",

@@ -3,7 +3,7 @@
     <v-chip
       v-for="(placeType, index) in placesTypes"
       :key="index"
-      :color="placeType.color"
+      :color="getChipColor(placeType.color, index, selectedTypes)"
     >{{ $vuetify.lang.t(`$vuetify.placeTypes.${placeType.key}`) }}</v-chip>
   </v-chip-group>
 </template>
@@ -28,6 +28,13 @@ export default {
         return this.placesTypes[index].key;
       });
       this.$emit("input", keysList);
+    }
+  },
+  methods: {
+    getChipColor(color, index, selectedTypes) {
+      if (selectedTypes.length === 0) return color;
+      if (selectedTypes.includes(index)) return color;
+      return null;
     }
   }
 };
