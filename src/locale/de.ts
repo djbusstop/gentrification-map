@@ -9,6 +9,9 @@ export default {
   },
   // Page title and description
   title: "Gentrifizierungskarte Neukölln",
+  description: "",
+  reportPlace:
+    "Wenn Sie von einem Ort in Neukölln wissen, der geschlossen wurde oder dem die Räumung droht, melden Sie ihn hier",
   // Filters
   filters: {
     filterPlaceTypeTitle: "nach Ortsart filtern"
@@ -26,6 +29,6 @@ export default {
     school: "Schüle",
     salon: "Salon"
   },
-  resultsListTitle: "Geschlossene Orte",
-  closed: "Geschlossen"
+  closed: "Geschlossen",
+  facingEviction: "drohende Zwangsräumung"
 };
