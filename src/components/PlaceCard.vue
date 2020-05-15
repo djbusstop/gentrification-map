@@ -12,7 +12,12 @@
       <p>{{ `${street} ${addressNumber} Berlin ${postcode || ""}` }}</p>
 
       <v-row class="mt-2">
-        <v-chip class="ml-2" small :color="red">{{ $vuetify.lang.t(`$vuetify.${placeStatei18n}`) }}</v-chip>
+        <v-chip
+          class="ml-2"
+          small
+          :light="closed"
+          :color="placeStateChipColor"
+        >{{ $vuetify.lang.t(`$vuetify.${placeStatei18n}`) }}</v-chip>
         <v-chip
           class="ml-2"
           small
@@ -61,6 +66,11 @@ export default {
       if (this.closed) return "closed";
       if (this.facingEviction) return "facingEviction";
       return "unknown";
+    },
+    placeStateChipColor() {
+      if (this.closed) return "#e3cb44";
+      if (this.facingEviction) return "#a80000";
+      return "";
     }
   },
   methods: {
