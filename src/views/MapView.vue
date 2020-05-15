@@ -1,7 +1,7 @@
 <template>
   <div class="map-view-grid">
     <!-- Sidebar -->
-    <v-container class="content">
+    <v-container id="content-container" class="content">
       <v-app-bar color="transparent" flat>
         <v-spacer />
         <v-btn
@@ -41,7 +41,7 @@
     </v-container>
 
     <!-- Map -->
-    <places-map :map-center="mapCenter" :places="filteredPlaces" />
+    <places-map id="map-container" :map-center="mapCenter" :places="filteredPlaces" />
   </div>
 </template>
 
@@ -152,5 +152,11 @@ export default {
 
   display: grid;
   grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 640px) {
+  .map-view-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
