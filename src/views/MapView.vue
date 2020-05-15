@@ -20,9 +20,10 @@
       <a target="_blank" :href="localisedFormLink">{{ $vuetify.lang.t("$vuetify.reportPlace") }}</a>
 
       <h3 class="mt-5">{{ $vuetify.lang.t("$vuetify.filters.filterPlaceTypeTitle") }}</h3>
-      <places-type-filter
+      <filter-chips
+        i18nKey="placeTypes"
         class="mb-4"
-        :places-types="placesTypesFilterOptions"
+        :options="placesTypesFilterOptions"
         v-model="typeFilter"
       />
 
@@ -51,8 +52,8 @@
 <script>
 import LocaleSelector from "@/components/LocaleSelector";
 import PlacesMap from "@/components/PlacesMap";
-import PlacesTypeFilter from "@/components/PlacesTypeFilter";
 import PlaceCard from "@/components/PlaceCard";
+import FilterChips from "@/components/FilterChips";
 
 import { getPlacesGeojson } from "@/api/airtable";
 
@@ -75,8 +76,8 @@ export default {
   components: {
     LocaleSelector,
     PlacesMap,
-    PlacesTypeFilter,
-    PlaceCard
+    PlaceCard,
+    FilterChips
   },
   async mounted() {
     // Get features
