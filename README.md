@@ -20,15 +20,10 @@ The Neukölln gentrification map allows us to watch and remember the change of o
 
 Data is collected through Airtable forms, distributed on social media and by community partners.
 
-#### Recently Closed Place Form
+#### Imapacted Place Form
 
 - [English](https://airtable.com/shrOgkjNoVXR5dYJt)
-- [German](https://airtable.com/tbl3a2HAYejnyw7uu/viwTWaWiJFE14QPAd?blocks=show)
-
-#### Recently Open Place Form
-
-- [English](https://airtable.com/tblRgrRKbQv2LyspL/viwmSrBbG4IhTe4m7?blocks=show)
-- [German](https://airtable.com/tblRgrRKbQv2LyspL/viwd3kqFPDmIIQHJf?blocks=show)
+- [German COMING SOON]()
 
 ## Project setup
 
