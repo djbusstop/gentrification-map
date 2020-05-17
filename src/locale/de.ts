@@ -30,9 +30,9 @@ export default {
     salon: "Salon"
   },
   placeStates: {
-    closed: "Geschlossen",
-    facingEviction: "Verdrängungsrisiko",
-    struggling: "kämpfende"
+    closed: "geschlossen",
+    facingEviction: "Räumungsklage",
+    struggling: "bedroht"
   },
   placeCard: {
     moreInfoLink: "weitere Informationen"
